@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Writing Program Exchange — A Field Resource for WPAs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/neue-machina" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --amber: #f5a623;
+  --amber-deep: #c4820d;
+  --amber-pale: #fef8ec;
+  --amber-light: #fde9b8;
+  --charcoal: #1c1c1e;
+  --charcoal-mid: #2e2e32;
+  --charcoal-light: #3e3e44;
+  --white: #ffffff;
+  --off: #f7f7f5;
+  --ink: #1a1a1a;
+  --ink-mid: #444;
+  --ink-light: #888;
+  --rule: #e5e5e3;
+  --display: 'Neue Machina', 'DM Sans', sans-serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--white); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: var(--charcoal);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 52px;
+}
+
+.nav-name {
+  font-family: var(--display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-name span { color: var(--amber); }
+
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--amber); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 5rem;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: 'WPX';
+  position: absolute;
+  right: -0.05em;
+  bottom: -0.15em;
+  font-family: var(--display);
+  font-size: clamp(200px, 28vw, 420px);
+  font-weight: 800;
+  color: rgba(0,0,0,0.03);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4rem;
+  align-items: end;
+}
+
+.hero-kicker {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+.hero-kicker::before {
+  content: '';
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--amber);
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(3rem, 7vw, 6.5rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--ink);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title span { color: var(--amber); }
+
+.hero-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.85;
+  max-width: 620px;
+  margin-bottom: 2rem;
+}
+
+.hero-cta {
+  display: flex; gap: 0.75rem; flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.btn-charcoal {
+  background: var(--charcoal);
+  color: var(--white);
+  font-family: var(--display);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid var(--charcoal);
+  transition: background 0.2s, transform 0.15s;
+}
+
+.btn-charcoal:hover { background: var(--charcoal-mid); transform: translateY(-1px); }
+
+.btn-amber {
+  background: transparent;
+  color: var(--amber-deep);
+  font-family: var(--display);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  display: inline-block;
+  border: 2px solid var(--amber);
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+
+.btn-amber:hover { background: var(--amber); color: var(--white); transform: translateY(-1px); }
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  max-width: 1160px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-stat {
+  background: var(--white);
+  padding: 1.5rem;
+}
+
+.hs-num {
+  font-family: var(--display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--amber);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+
+.hs-label {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  line-height: 1.4;
+}
+
+/* ── SHARED ── */
+section { padding: 6rem 3rem; }
+.container { max-width: 1160px; margin: 0 auto; }
+
+.section-header {
+  display: flex; align-items: baseline; gap: 1.25rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.section-num {
+  font-family: var(--display);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--amber-light);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(1.75rem, 3vw, 2.75rem);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.section-intro {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  max-width: 720px;
+  margin-bottom: 3rem;
+  line-height: 1.9;
+}
+
+/* ── RESOURCES ── */
+.resources-section { background: var(--off); }
+
+.resources-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.resource-card {
+  background: var(--white);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.2s;
+}
+
+.resource-card:hover { background: var(--amber-pale); }
+
+.rc-cat {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+
+.rc-cat::before {
+  content: '';
+  display: block;
+  width: 14px; height: 2px;
+  background: var(--amber);
+}
+
+.rc-title {
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 0.75rem;
+}
+
+.rc-desc {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+  flex: 1;
+}
+
+.rc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+
+.rc-tag {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  background: var(--amber-pale);
+  border: 1px solid var(--amber-light);
+  color: var(--amber-deep);
+}
+
+.rc-link {
+  font-family: var(--display);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+  display: inline-block;
+  transition: color 0.2s, border-color 0.2s;
+  margin-top: auto;
+}
+
+.rc-link:hover { color: var(--amber-deep); border-color: var(--amber); }
+
+/* ── RESOURCE DETAIL: LABOR PLAYBOOK ── */
+.playbook-section { background: var(--white); }
+
+.playbook-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.playbook-intro {
+  font-size: 0.975rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.9;
+}
+
+.playbook-pull {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--amber-deep);
+  border-left: 3px solid var(--amber);
+  padding-left: 1.25rem;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 3rem;
+}
+
+.step-tile {
+  background: var(--white);
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s;
+}
+
+.step-tile:hover { background: var(--off); }
+
+.step-tile::before {
+  content: attr(data-n);
+  position: absolute;
+  bottom: -0.1em; right: 0.1em;
+  font-family: var(--display);
+  font-size: 4.5rem;
+  font-weight: 800;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.st-num {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.5rem;
+}
+
+.st-title {
+  font-family: var(--display);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.st-desc {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.65;
+}
+
+.scenarios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.scenario-tile {
+  background: var(--white);
+  padding: 2rem;
+  border-top: 3px solid var(--rule);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.scenario-tile:nth-child(1) { border-top-color: var(--amber); }
+.scenario-tile:nth-child(2) { border-top-color: var(--charcoal); }
+.scenario-tile:nth-child(3) { border-top-color: var(--amber-deep); }
+.scenario-tile:hover { background: var(--off); }
+
+.sc-inst {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 0.5rem;
+}
+
+.sc-title {
+  font-family: var(--display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.sc-desc {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.75;
+}
+
+/* ── RESOURCE DETAIL: DATA ── */
+.data-section { background: var(--off); }
+
+.heuristic-block {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--amber);
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.hb-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  margin-bottom: 0.875rem;
+}
+
+.hb-title {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+.hb-questions {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 2rem;
+}
+
+.hb-questions li {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  padding-left: 1rem;
+  position: relative;
+  line-height: 1.65;
+}
+
+.hb-questions li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+  font-size: 0.65rem;
+  top: 0.22rem;
+}
+
+/* ── CROSSWALK ── */
+.crosswalk-section { background: var(--white); }
+
+.crosswalk-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--rule);
+  margin-bottom: 2rem;
+  font-size: 0.85rem;
+}
+
+.crosswalk-table th {
+  font-family: var(--display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  border-bottom: 2px solid var(--ink);
+  background: var(--off);
+  color: var(--ink);
+}
+
+.crosswalk-table th:first-child { color: var(--amber-deep); border-bottom-color: var(--amber); }
+
+.crosswalk-table td {
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  line-height: 1.65;
+  font-weight: 300;
+  color: var(--ink-mid);
+}
+
+.crosswalk-table tr:last-child td { border-bottom: none; }
+.crosswalk-table tr:hover td { background: var(--off); }
+
+.crosswalk-table td:first-child {
+  font-family: var(--display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+.crosswalk-table td:nth-child(2) {
+  font-size: 0.8rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+.ct-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  background: var(--amber-pale);
+  border: 1px solid var(--amber-light);
+  color: var(--amber-deep);
+  margin-right: 0.3rem;
+  margin-bottom: 0.25rem;
+  vertical-align: middle;
+}
+
+/* ── ABOUT (DARK) ── */
+.about-section { background: var(--charcoal); color: var(--white); }
+
+.about-section .section-header { border-bottom-color: rgba(255,255,255,0.12); }
+.about-section .section-num { color: rgba(255,255,255,0.07); }
+.about-section .section-title { color: var(--white); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-bottom: 4rem;
+}
+
+.about-kicker {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+
+.about-kicker::before {
+  content: '';
+  display: block;
+  width: 20px; height: 2px;
+  background: var(--amber);
+}
+
+.about-body {
+  font-size: 0.975rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.62);
+  line-height: 1.9;
+}
+
+.about-pull {
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--amber);
+  border-left: 3px solid var(--amber);
+  padding-left: 1.25rem;
+  line-height: 1.4;
+  margin: 2rem 0;
+}
+
+.about-sidebar { }
+
+.as-block {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.as-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+.as-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 0.6rem;
+}
+
+.as-value {
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.75;
+}
+
+.as-value a {
+  color: var(--amber-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245,166,35,0.3);
+  transition: border-color 0.2s;
+}
+
+.as-value a:hover { border-color: var(--amber); }
+
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.team-tile {
+  background: rgba(255,255,255,0.03);
+  padding: 2rem;
+  transition: background 0.2s;
+}
+
+.team-tile:hover { background: rgba(255,255,255,0.06); }
+
+.tt-tag {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--amber);
+  padding: 0.2rem 0.5rem;
+  display: inline-block;
+  margin-bottom: 0.75rem;
+}
+
+.tt-name {
+  font-family: var(--display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--white);
+  margin-bottom: 0.2rem;
+}
+
+.tt-inst {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.875rem;
+}
+
+.tt-bio {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.8;
+}
+
+/* ── CONTRIBUTE ── */
+.contribute-section { background: var(--amber-pale); }
+
+.contribute-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.contribute-body {
+  font-size: 0.975rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.9;
+}
+
+.contribute-ways {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+}
+
+.cw-item {
+  background: var(--white);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: background 0.2s;
+}
+
+.cw-item:hover { background: var(--amber-pale); }
+
+.cw-arrow {
+  font-family: var(--display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--amber);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.cw-text { }
+
+.cw-title {
+  font-family: var(--display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  margin-bottom: 0.2rem;
+}
+
+.cw-desc {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--ink-mid);
+  line-height: 1.6;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--charcoal-mid);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid var(--amber);
+}
+
+.footer-name {
+  font-family: var(--display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+}
+
+.footer-right {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.05em;
+}
+
+.footer-right a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-right a:hover { color: var(--amber); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .steps-grid { grid-template-columns: repeat(2, 1fr); }
+  .hb-questions { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 6rem 1.5rem 4rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .resources-grid { grid-template-columns: 1fr; }
+  .playbook-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .scenarios-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .team-grid { grid-template-columns: 1fr; }
+  .contribute-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  section { padding: 4rem 1.5rem; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .steps-grid { grid-template-columns: 1fr; }
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+  .crosswalk-table { font-size: 0.78rem; }
+  .crosswalk-table th, .crosswalk-table td { padding: 0.6rem 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-name">The Writing Program <span>Exchange</span></a>
+  <ul class="nav-links">
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#playbook">Advocacy</a></li>
+    <li><a href="#data">Data</a></li>
+    <li><a href="#crosswalk">Crosswalk</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contribute">Contribute</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">A Field Resource for Writing Program Administrators</div>
+      <div class="hero-title">THE WRITING<br>PROGRAM<br><span>EXCHANGE</span></div>
+      <p class="hero-desc">A collaborative, searchable resource hub translating disciplinary knowledge into institutional action — for WPAs, WAC administrators, department chairs, and writing faculty navigating real institutional challenges.</p>
+      <div class="hero-cta">
+        <a href="#resources" class="btn-charcoal">Explore Resources</a>
+        <a href="#contribute" class="btn-amber">Contribute →</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-stats container">
+    <div class="hero-stat">
+      <div class="hs-num">3</div>
+      <div class="hs-label">Working groups</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-num">30+</div>
+      <div class="hs-label">Contributors</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-num">CWPA</div>
+      <div class="hs-label">Partner organization</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hs-num">OA</div>
+      <div class="hs-label">Open access, always</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESOURCES OVERVIEW -->
+<section class="resources-section" id="resources">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Resources</div>
+    </div>
+    <p class="section-intro">Three practical working areas developed collaboratively by writing program practitioners across institution types — each designed to be usable, adaptable, and grounded in current scholarship.</p>
+
+    <div class="resources-grid">
+      <div class="resource-card">
+        <div class="rc-cat">Labor &amp; Advocacy</div>
+        <div class="rc-title">Labor Advocacy Playbook</div>
+        <div class="rc-desc">Decision trees and scenario-based guidance for WPAs navigating course caps, workload, DEI policy challenges, and institutional resistance across a range of institution types and career positions.</div>
+        <div class="rc-tags">
+          <span class="rc-tag">WPA</span>
+          <span class="rc-tag">Policy</span>
+          <span class="rc-tag">Two-Year</span>
+          <span class="rc-tag">Labor</span>
+        </div>
+        <a href="#playbook" class="rc-link">View Resource</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="rc-cat">Data &amp; Visualization</div>
+        <div class="rc-title">Data-Driven Advocacy Guide</div>
+        <div class="rc-desc">Heuristics for collecting, analyzing, and visualizing program data to make persuasive, ethical arguments to administrators — including a focused class size case study and equity frameworks.</div>
+        <div class="rc-tags">
+          <span class="rc-tag">Data</span>
+          <span class="rc-tag">Visualization</span>
+          <span class="rc-tag">Equity</span>
+          <span class="rc-tag">Stakeholders</span>
+        </div>
+        <a href="#data" class="rc-link">View Resource</a>
+      </div>
+
+      <div class="resource-card">
+        <div class="rc-cat">Language &amp; Translation</div>
+        <div class="rc-title">Crosswalk Reference</div>
+        <div class="rc-desc">A translation table mapping administrative language to writing studies concepts — designed for chairs, WPAs, and course leads who need to bridge disciplinary and institutional discourse in high-stakes conversations.</div>
+        <div class="rc-tags">
+          <span class="rc-tag">Language</span>
+          <span class="rc-tag">Admin</span>
+          <span class="rc-tag">WAC/WID</span>
+          <span class="rc-tag">Curriculum</span>
+        </div>
+        <a href="#crosswalk" class="rc-link">View Resource</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LABOR ADVOCACY PLAYBOOK -->
+<section class="playbook-section" id="playbook">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">Labor Advocacy Playbook</div>
+    </div>
+
+    <div class="playbook-grid">
+      <div>
+        <div class="playbook-pull">Translating the CCCC Statement on Professional Guidance into practical, adaptable institutional action.</div>
+        <div class="playbook-intro">
+          <p>The Playbook provides a structured process for WPAs at all levels of institutional power — from course leads with informal influence to tenured faculty with administrative authority. Each step is designed to be adapted to your institution type, position, and risk tolerance.</p>
+          <p style="margin-top:1rem">The resource addresses key professional issues including teaching load, course caps, teaching modality, contract transparency, performance evaluation, curriculum autonomy, and labor equity — grounded in CCCC, CWPA, TYCA, and MLA professional statements.</p>
+        </div>
+      </div>
+      <div>
+        <div style="background: var(--off); border: 1px solid var(--rule); border-top: 3px solid var(--amber); padding: 1.75rem;">
+          <div style="font-family: var(--mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber-deep); margin-bottom: 1rem;">Key Professional Issues Addressed</div>
+          <ul style="list-style: none; font-size: 0.82rem; color: var(--ink-mid); font-weight: 300;">
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative; border-bottom: 1px solid var(--rule);"><span style="position:absolute;left:0;color:var(--amber);">→</span>Teaching load &amp; course caps</li>
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative; border-bottom: 1px solid var(--rule);"><span style="position:absolute;left:0;color:var(--amber);">→</span>Contract transparency &amp; salary</li>
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative; border-bottom: 1px solid var(--rule);"><span style="position:absolute;left:0;color:var(--amber);">→</span>DEI-informed curriculum policy</li>
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative; border-bottom: 1px solid var(--rule);"><span style="position:absolute;left:0;color:var(--amber);">→</span>Faculty reappointment &amp; evaluation</li>
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative; border-bottom: 1px solid var(--rule);"><span style="position:absolute;left:0;color:var(--amber);">→</span>Teaching modality &amp; scheduling</li>
+            <li style="padding: 0.35rem 0 0.35rem 1rem; position: relative;"><span style="position:absolute;left:0;color:var(--amber);">→</span>Curricular autonomy &amp; shared governance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-family: var(--display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 0.75rem;"><span style="display:block;width:20px;height:2px;background:var(--amber);"></span>Process Overview</div>
+
+    <div class="steps-grid" style="margin-bottom: 3rem;">
+      <div class="step-tile" data-n="1">
+        <div class="st-num">Step 01</div>
+        <div class="st-title">Situational Self-Assessment</div>
+        <div class="st-desc">Evaluate your institutional power, position type, and length of tenure to understand your leverage and risk tolerance before acting.</div>
+      </div>
+      <div class="step-tile" data-n="2">
+        <div class="st-num">Step 02</div>
+        <div class="st-title">Identify &amp; Connect</div>
+        <div class="st-desc">Map who else is affected, what spaces already exist for coalition-building, and how decisions are made about the issue at your institution.</div>
+      </div>
+      <div class="step-tile" data-n="3">
+        <div class="st-num">Step 03</div>
+        <div class="st-title">Gather Local Data</div>
+        <div class="st-desc">Collect quantitative and qualitative data in coordination with institutional effectiveness, registrar, and faculty. Document existing policies.</div>
+      </div>
+      <div class="step-tile" data-n="4">
+        <div class="st-num">Step 04</div>
+        <div class="st-title">Compare to National Standards</div>
+        <div class="st-desc">Locate relevant CCCC, CWPA, TYCA, MLA, and AAUP statements. Use national data to frame local findings with disciplinary authority.</div>
+      </div>
+      <div class="step-tile" data-n="5">
+        <div class="st-num">Step 05</div>
+        <div class="st-title">Plan a Sharing Event</div>
+        <div class="st-desc">Determine format, audience, and whether to include leadership. Disseminate findings to build coalition and momentum for change.</div>
+      </div>
+      <div class="step-tile" data-n="6">
+        <div class="st-num">Step 06</div>
+        <div class="st-title">Push into Governance or Beyond</div>
+        <div class="st-desc">If momentum is built, move through official channels. If not, consider the Trojan Horse approach, faculty senate, union, press, or accreditor outreach.</div>
+      </div>
+    </div>
+
+    <div style="font-family: var(--display); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--rule); display: flex; align-items: center; gap: 0.75rem;"><span style="display:block;width:20px;height:2px;background:var(--amber);"></span>Scenario Case Studies</div>
+
+    <div class="scenarios-grid">
+      <div class="scenario-tile">
+        <div class="sc-inst">Two-Year College · NTT Faculty</div>
+        <div class="sc-title">Course Caps &amp; Sustainable Workload</div>
+        <div class="sc-desc">A continuing contract faculty member at a large community college seeks to reduce course caps from 24 to 22 and restructure workload following state elimination of non-degree credit writing courses. DFW rate has risen to 33%.</div>
+      </div>
+      <div class="scenario-tile">
+        <div class="sc-inst">Regional University · Tenure-Track</div>
+        <div class="sc-title">DEI Curriculum Under Legislative Ban</div>
+        <div class="sc-desc">A 5th-year tenure-track WPA in a red-state institution navigates a legislative ban on DEI content while working to preserve anti-racist pedagogical approaches developed with the composition committee.</div>
+      </div>
+      <div class="scenario-tile">
+        <div class="sc-inst">Comprehensive University · Tenured WPA</div>
+        <div class="sc-title">Early College Program — Rushed Timeline</div>
+        <div class="sc-desc">A tenured WPA is asked by the Dean to offer first-year writing as part of a new Early College initiative beginning in July — with the request arriving in late March. How to respond when student success concerns conflict with institutional pressure.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA SECTION -->
+<section class="data-section" id="data">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">Data-Driven Advocacy</div>
+    </div>
+    <p class="section-intro">WPAs must learn to frame their program's value through data that aligns with administrative priorities — while attending to equity, disciplinary values, and the ethics of data collection. These heuristics support the full lifecycle of data-driven advocacy.</p>
+
+    <div class="heuristic-block">
+      <div class="hb-label">Heuristic 01 — Planning Your Advocacy</div>
+      <div class="hb-title">Questions to Ask Before You Start</div>
+      <ul class="hb-questions">
+        <li>What is happening — what is the exigence for this advocacy?</li>
+        <li>What is your goal and why? What genre does your audience expect?</li>
+        <li>Who is your audience and what data is legible to them?</li>
+        <li>Where did this data come from? What biases should you consider?</li>
+        <li>Who can help with data collection and analysis?</li>
+        <li>What scholarship and national standards can support your case?</li>
+        <li>Are you making a comparison? What would be a useful benchmark?</li>
+        <li>What are the limitations of your data for interpretation?</li>
+        <li>What language is legible to your audience? (enrollment, retention, SCH)</li>
+        <li>What is your plan for circulation — and why that method?</li>
+      </ul>
+    </div>
+
+    <div class="heuristic-block" style="border-top-color: var(--charcoal);">
+      <div class="hb-label">Heuristic 02 — Class Size Case Study</div>
+      <div class="hb-title">Visualizing Class Size Data for Different Stakeholders</div>
+      <ul class="hb-questions">
+        <li><strong>For campus leaders:</strong> Dashboard showing average class size by department overlaid with cost and Student Credit Hour (SCH) data</li>
+        <li><strong>For faculty governance:</strong> Class size distributions by course type with student learning outcomes alongside cap size</li>
+        <li><strong>For public advocacy:</strong> Comparison bar chart or scatter plot — class size before/after cap increases with retention or satisfaction rates</li>
+        <li><strong>Equity check:</strong> Are low-enrolling sections (internships, independent studies) distorting averages?</li>
+        <li><strong>Transparency:</strong> Does your visualization note its data sources and limitations?</li>
+        <li><strong>Framing:</strong> Position class size as a lever for retention, pedagogical quality, and student outcomes — not just an efficiency metric</li>
+      </ul>
+    </div>
+
+    <div style="background: var(--white); border: 1px solid var(--rule); padding: 2rem; border-left: 3px solid var(--amber);">
+      <div style="font-family: var(--mono); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber-deep); margin-bottom: 0.75rem;">Data Feminism Framework</div>
+      <p style="font-size: 0.875rem; font-weight: 300; color: var(--ink-mid); line-height: 1.85; max-width: 820px;">Drawing on D'Ignazio and Klein's <em>Data Feminism</em>, this resource asks WPAs to consider power at every stage of data work: Who collected this data (and who did not)? Whose goals are prioritized? Who benefits — and who does not? Collecting and analyzing data means thinking about power and what the consequences are for such collection and analysis.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CROSSWALK -->
+<section class="crosswalk-section" id="crosswalk">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">Crosswalk Reference</div>
+    </div>
+    <p class="section-intro">A translation table mapping terms commonly used by upper administration to key concepts and approaches within writing studies scholarship — designed to help WPAs, chairs, and course leads speak fluently across institutional and disciplinary discourse.</p>
+
+    <table class="crosswalk-table">
+      <thead>
+        <tr>
+          <th>Admin Term / Concept</th>
+          <th>Admin Focus</th>
+          <th>Related Writing Studies Concept</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Student Success<br>Retention<br>Graduation Rate</td>
+          <td>Metrics of student progression and completion</td>
+          <td><span class="ct-badge">High-Impact Practice</span><span class="ct-badge">Metacognition</span><span class="ct-badge">Transfer of Learning</span>Writing-intensive courses significantly contribute to engagement, persistence, and long-term success across contexts.</td>
+          <td>See AAC&U; Meaningful Writing Project</td>
+        </tr>
+        <tr>
+          <td>Foundational Literacies</td>
+          <td>Functional reading, writing, and communication skills for general education</td>
+          <td><span class="ct-badge">Rhetorical Competence</span><span class="ct-badge">Genre Awareness</span><span class="ct-badge">Multimodal Communication</span></td>
+          <td>Nuance and elaboration of the administrative term</td>
+        </tr>
+        <tr>
+          <td>Workforce Readiness<br>Competency-Based Learning</td>
+          <td>Equip students with employer-demanded skills; enhance institutional reputation</td>
+          <td><span class="ct-badge">Rhetorical Agility</span><span class="ct-badge">Genre Fluency</span><span class="ct-badge">Professional &amp; Technical Communication</span>Adapt communication to diverse audiences, purposes, and contexts across professional communities.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Curricular Reform<br>General Education Reform<br>Streamlining</td>
+          <td>Efficiency, modernization, accreditation standards</td>
+          <td><span class="ct-badge">WAC / WID</span><span class="ct-badge">Programmatic Coherence</span><span class="ct-badge">Pedagogical Expertise</span>Writing instruction requires its own disciplinary knowledge; sequencing and articulation matter.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Operational Efficiency</td>
+          <td>Optimize processes, reduce labor costs, leverage AI for productivity</td>
+          <td><span class="ct-badge">Recursive Writing Process</span><span class="ct-badge">Human Agency</span><span class="ct-badge">AI Literacy</span><span class="ct-badge">Labor Equity</span>Overemphasis on efficiency may compromise quality. GenAI should augment, not replace, expert human judgment.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Accreditation<br>Quality Improvement</td>
+          <td>Meeting external standards</td>
+          <td><span class="ct-badge">Programmatic Assessment</span><span class="ct-badge">Learning Outcomes</span><span class="ct-badge">Faculty Development</span></td>
+          <td>Systematic evaluation of programs and instruction</td>
+        </tr>
+        <tr>
+          <td>Employee Well-Being</td>
+          <td>Institutional reputation; faculty and staff health</td>
+          <td><span class="ct-badge">Class Size</span><span class="ct-badge">Faculty Workload</span><span class="ct-badge">Faculty Roles &amp; Responsibilities</span></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Entrepreneurial Mindset<br>Innovation</td>
+          <td>Fostering curiosity and initiative, often in STEM contexts</td>
+          <td><span class="ct-badge">Writing-to-Learn</span><span class="ct-badge">Rhetorical Inquiry</span>Related to innovation; seen in engineering contexts as a way to foster curiosity.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Campus Partnerships<br>Experiential Learning</td>
+          <td>Connecting to local communities; hands-on learning</td>
+          <td><span class="ct-badge">Service-Learning</span><span class="ct-badge">Public Writing</span><span class="ct-badge">Community Engagement</span></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="background: var(--off); border: 1px solid var(--rule); padding: 1.5rem; font-size: 0.82rem; font-weight: 300; color: var(--ink-mid); line-height: 1.75;">
+      <strong style="font-family: var(--display); font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--amber-deep);">Intended Audience</strong><br>
+      Writing program administrators, WAC administrators, curriculum coordinators, department chairs, and course leads who need to translate between disciplinary expertise and administrative language in curriculum conversations, program reviews, and advocacy work.
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">05</div>
+      <div class="section-title">About the Exchange</div>
+    </div>
+
+    <div class="about-grid">
+      <div>
+        <div class="about-kicker">Co-directed by Kirsti Cole &amp; Holly Hassel</div>
+        <div class="about-body">
+          <p>The Writing Program Exchange emerged from a collaborative collective of writing program practitioners committed to making disciplinary expertise more accessible and actionable in institutional contexts. Rather than a traditional policy document or static position statement, the Exchange is designed as a living, searchable, updatable resource that adapts to the diversity of institutions, positions, and challenges WPAs face.</p>
+          <p style="margin-top:1rem">The Exchange differs from traditional organizational resources in that it does not rely on live listserv activity for searching and sorting. It is designed to be a stable web environment that can grow over time — a new kind of blueprint for professional activity in the field.</p>
+          <p style="margin-top:1rem">We are currently in active conversation with the Council of Writing Program Administrators (CWPA) to explore possibilities for formal linking, sponsorship, and/or platform support. CWPA leadership has expressed strong interest and encouragement for this collaboration.</p>
+        </div>
+        <div class="about-pull">A unique and useful resource for the field — differing from traditional organizational documents and offering a new kind of blueprint for professional activity.</div>
+      </div>
+      <div class="about-sidebar">
+        <div class="as-block">
+          <div class="as-label">Status</div>
+          <div class="as-value">Active resource development<br>In partnership conversations with CWPA<br>Three working groups contributing content</div>
+        </div>
+        <div class="as-block">
+          <div class="as-label">CWPA Partnership</div>
+          <div class="as-value">Ongoing conversations with CWPA Executive Board (Kelly Blewett, David Green, Erin Lehman). Next EB meeting: December 2025. Seeking CWPA member liaisons from working groups.</div>
+        </div>
+        <div class="as-block">
+          <div class="as-label">Working Groups</div>
+          <div class="as-value">
+            Group 1: Policy to Position (Labor Advocacy)<br>
+            Group 2: Visualizing Data to Support Change Work<br>
+            Group 3: Crosswalk Reference &amp; Translation
+          </div>
+        </div>
+        <div class="as-block">
+          <div class="as-label">Contact</div>
+          <div class="as-value">
+            <a href="mailto:kkcole2@ncsu.edu">kkcole2@ncsu.edu</a><br>
+            <a href="mailto:hjhassel@mtu.edu">hjhassel@mtu.edu</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-grid">
+      <div class="team-tile">
+        <div class="tt-tag">Co-Director</div>
+        <div class="tt-name">Kirsti Cole</div>
+        <div class="tt-inst">Professor of English &amp; Co-Director, CWSP · NC State University</div>
+        <div class="tt-bio">Kirsti's research spans institutional ethnography, WAC/WID program administration, AI and digital writing pedagogies, and feminist rhetorics. She is co-author of the AWAC Statement on AI Writing Tools (2025) and an invited member of the MLA AI and Research Working Group.</div>
+      </div>
+      <div class="team-tile">
+        <div class="tt-tag">Co-Director</div>
+        <div class="tt-name">Holly Hassel</div>
+        <div class="tt-inst">Michigan Technological University</div>
+        <div class="tt-bio">Holly's scholarship focuses on writing program administration, labor equity, and faculty governance in higher education. She is co-editor with Kirsti Cole of multiple collections on academic labor, feminist leadership, and writing program change work.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTRIBUTE -->
+<section class="contribute-section" id="contribute">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">06</div>
+      <div class="section-title">Contribute</div>
+    </div>
+    <div class="contribute-grid">
+      <div>
+        <div class="contribute-body">
+          <p>The Writing Program Exchange grows through the contributions of practitioners across the field. Whether you are a WPA with a scenario to share, a researcher with relevant data, or a practitioner who has navigated a specific institutional challenge, your knowledge strengthens this resource.</p>
+          <p style="margin-top:1rem">We are particularly seeking CWPA members who would be willing to serve as liaisons between the Exchange working groups and the CWPA Executive Board as we formalize our partnership and build out the resource together.</p>
+          <p style="margin-top:1.5rem">Please complete the <strong>reflection form</strong> if you have participated in a working group session, and fill out the When2Meet to help us schedule our next collaborative drafting session.</p>
+        </div>
+      </div>
+      <div class="contribute-ways">
+        <div class="cw-item">
+          <div class="cw-arrow">→</div>
+          <div class="cw-text">
+            <div class="cw-title">Join a Working Group</div>
+            <div class="cw-desc">Contribute your expertise to one of the three active working groups developing resource content.</div>
+          </div>
+        </div>
+        <div class="cw-item">
+          <div class="cw-arrow">→</div>
+          <div class="cw-text">
+            <div class="cw-title">Serve as a CWPA Liaison</div>
+            <div class="cw-desc">CWPA members can help establish a formal relationship between the Exchange and the organization's Executive Board.</div>
+          </div>
+        </div>
+        <div class="cw-item">
+          <div class="cw-arrow">→</div>
+          <div class="cw-text">
+            <div class="cw-title">Complete the Reflection Form</div>
+            <div class="cw-desc">Share your experience with the project to inform our publication planning and next steps.</div>
+          </div>
+        </div>
+        <div class="cw-item">
+          <div class="cw-arrow">→</div>
+          <div class="cw-text">
+            <div class="cw-title">Submit a Scenario or Resource</div>
+            <div class="cw-desc">Share an institutional scenario, data visualization, or crosswalk entry for potential inclusion in the Exchange.</div>
+          </div>
+        </div>
+        <div class="cw-item">
+          <div class="cw-arrow">→</div>
+          <div class="cw-text">
+            <div class="cw-title">Contact the Co-Directors</div>
+            <div class="cw-desc"><a href="mailto:kkcole2@ncsu.edu" style="color:var(--amber-deep)">kkcole2@ncsu.edu</a> · <a href="mailto:hjhassel@mtu.edu" style="color:var(--amber-deep)">hjhassel@mtu.edu</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">The Writing Program Exchange</div>
+  <div class="footer-right">Co-directed by Kirsti Cole (NC State) &amp; Holly Hassel (Michigan Tech) · In partnership with <a href="https://cwpa.org" target="_blank">CWPA</a> · Open Access</div>
+</footer>
+
+</body>
+</html>
