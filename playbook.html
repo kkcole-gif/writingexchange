@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Labor Advocacy Playbook — The Writing Program Exchange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/neue-machina" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --amber:#f5a623; --amber-dk:#c4820d; --amber-lt:#fef3c7; --amber-pale:#fef9ec;
+  --charcoal:#1c1c1e; --charcoal-m:#2e2e32;
+  --white:#ffffff; --off:#f7f7f5;
+  --ink:#1a1a1a; --ink-mid:#3d4555; --ink-lt:#6b7280; --rule:#e5e5e3;
+  --green:#15803d; --green-lt:#dcfce7; --red:#dc2626; --red-lt:#fee2e2;
+  --display:'Neue Machina','DM Sans',sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html{font-size:16px;scroll-behavior:smooth;}
+body{background:var(--white);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--charcoal);display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:52px;}
+.nav-name{font-family:var(--display);font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--white);text-decoration:none;}
+.nav-name span{color:var(--amber);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-family:var(--mono);font-size:.63rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--amber);}
+
+.hero{min-height:60vh;background:var(--white);display:flex;flex-direction:column;justify-content:flex-end;padding:8rem 3rem 3rem;border-bottom:1px solid var(--rule);overflow:hidden;position:relative;}
+.hero::after{content:'PLAYBOOK';position:absolute;right:-.02em;bottom:-.1em;font-family:var(--display);font-size:clamp(100px,16vw,260px);font-weight:800;color:rgba(0,0,0,.03);line-height:1;pointer-events:none;}
+.hero-inner{max-width:1160px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:end;}
+.hero-kicker{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);margin-bottom:.75rem;display:flex;align-items:center;gap:.75rem;}
+.hero-kicker::before{content:'';display:block;width:24px;height:2px;background:var(--amber);}
+.hero-title{font-family:var(--display);font-size:clamp(2.5rem,6vw,5rem);font-weight:800;text-transform:uppercase;letter-spacing:-.02em;line-height:.95;color:var(--ink);margin-bottom:1.25rem;}
+.hero-desc{font-size:1rem;font-weight:300;color:var(--ink-mid);max-width:600px;line-height:1.85;margin-bottom:1.5rem;}
+.hero-audience{background:var(--amber-lt);border-left:3px solid var(--amber);padding:.75rem 1rem;font-size:.875rem;color:var(--ink-mid);max-width:640px;}
+.hero-audience strong{color:var(--charcoal);font-weight:500;}
+.btn-play{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.25rem;font-family:var(--display);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid transparent;transition:all .15s;}
+.btn-play-primary{background:var(--charcoal);color:var(--white);border-color:var(--charcoal);}
+.btn-play-primary:hover{background:var(--charcoal-m);transform:translateY(-1px);}
+.btn-tag{background:rgba(255,255,255,.15);font-size:.58rem;padding:.15rem .4rem;font-family:var(--mono);}
+
+.jump-nav{background:var(--off);border-bottom:1px solid var(--rule);position:sticky;top:52px;z-index:100;}
+.jump-nav-inner{max-width:1160px;margin:0 auto;padding:.6rem 3rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;}
+.jump-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lt);margin-right:.5rem;}
+.jump-btn{font-family:var(--mono);font-size:.62rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-lt);text-decoration:none;padding:.2rem .65rem;border:1.5px solid transparent;transition:all .15s;}
+.jump-btn:hover,.jump-btn.active{border-color:var(--charcoal);color:var(--charcoal);}
+
+.section{padding:5rem 3rem;}
+.container{max-width:1160px;margin:0 auto;}
+.section-header{display:flex;align-items:baseline;gap:1.25rem;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:2px solid var(--ink);}
+.section-num{font-family:var(--display);font-size:3rem;font-weight:800;color:rgba(0,0,0,.06);line-height:1;}
+.section-title{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.25rem);font-weight:800;text-transform:uppercase;letter-spacing:.01em;}
+.section-intro{font-size:.975rem;font-weight:300;color:var(--ink-mid);max-width:680px;margin-bottom:3rem;line-height:1.9;}
+
+/* POSITION CARDS */
+.positions-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-bottom:2rem;}
+.pos-card{background:var(--white);padding:1.75rem;transition:background .2s;}
+.pos-card:hover{background:var(--amber-pale);}
+.pos-type{font-family:var(--mono);font-size:.58rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dk);margin-bottom:.5rem;}
+.pos-title{font-family:var(--display);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);margin-bottom:.5rem;}
+.pos-desc{font-size:.82rem;font-weight:300;color:var(--ink-mid);line-height:1.75;margin-bottom:.75rem;}
+.risk-tag{display:inline-block;font-family:var(--mono);font-size:.65rem;font-weight:500;padding:.2rem .55rem;border-radius:2px;margin-bottom:.5rem;}
+.risk-high{background:var(--red-lt);color:var(--red);}
+.risk-mod{background:var(--amber-lt);color:var(--amber-dk);}
+.risk-low{background:var(--green-lt);color:var(--green);}
+.leverage-bar{display:flex;gap:3px;margin-top:.4rem;}
+.leverage-dot{width:9px;height:9px;border-radius:1px;background:var(--rule);}
+.leverage-dot.filled{background:var(--amber);}
+
+/* STEPS */
+.steps-section{background:var(--off);}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.step-card{background:var(--white);padding:2rem 1.75rem;position:relative;overflow:hidden;cursor:pointer;transition:background .2s;}
+.step-card::after{content:attr(data-n);position:absolute;right:-.02em;bottom:-.1em;font-family:var(--display);font-size:5rem;font-weight:800;color:rgba(0,0,0,.04);line-height:1;pointer-events:none;}
+.step-card:hover,.step-card.open{background:var(--amber-pale);}
+.step-card.open{border-left:3px solid var(--amber);}
+.step-n{font-family:var(--mono);font-size:.6rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.4rem;}
+.step-title{font-family:var(--display);font-size:.95rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);margin-bottom:.4rem;line-height:1.2;}
+.step-preview{font-size:.8rem;font-weight:300;color:var(--ink-mid);line-height:1.6;}
+.step-icon{position:absolute;top:1rem;right:1rem;font-family:var(--mono);font-size:1rem;color:var(--amber);font-weight:700;}
+
+.step-detail{display:none;background:var(--charcoal);color:rgba(255,255,255,.85);padding:2.5rem 3rem;}
+.step-detail.open{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;}
+.sd-label{font-family:var(--mono);font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem;margin-top:1.25rem;}
+.sd-label:first-child{margin-top:0;}
+.sd-title{font-family:var(--display);font-size:1.3rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:var(--white);margin-bottom:1rem;line-height:1.1;}
+.sd-body{font-size:.875rem;font-weight:300;color:rgba(255,255,255,.7);line-height:1.85;}
+.sd-body p{margin-bottom:.75rem;}
+.sd-list{list-style:none;}
+.sd-list li{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.7);padding:.35rem 0 .35rem 1.25rem;position:relative;border-bottom:1px solid rgba(255,255,255,.07);line-height:1.55;}
+.sd-list li::before{content:'→';position:absolute;left:0;color:var(--amber);font-size:.7rem;top:.45rem;}
+.sd-qs{background:rgba(255,255,255,.05);padding:1.25rem 1.5rem;margin-top:1rem;}
+.sd-qs-lbl{font-family:var(--mono);font-size:.58rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:.75rem;}
+.sd-q{font-size:.82rem;font-weight:300;color:rgba(255,255,255,.75);padding:.3rem 0 .3rem 1rem;position:relative;line-height:1.55;}
+.sd-q::before{content:'?';position:absolute;left:0;color:var(--amber);font-size:.7rem;font-weight:700;top:.35rem;}
+.source-pill{display:inline-flex;align-items:center;gap:.35rem;background:rgba(255,255,255,.07);padding:.3rem .65rem;margin:.2rem;font-family:var(--mono);font-size:.65rem;}
+.source-pill a{color:rgba(245,166,35,.85);text-decoration:none;}
+.source-pill a:hover{color:var(--amber);text-decoration:underline;}
+
+/* SCENARIOS */
+.scenarios-section{background:var(--white);}
+.scenario-filter{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:2rem;}
+.scen-btn{font-family:var(--mono);font-size:.65rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;padding:.3rem .8rem;border:1.5px solid var(--rule);background:transparent;color:var(--ink-lt);cursor:pointer;transition:all .15s;}
+.scen-btn:hover,.scen-btn.active{border-color:var(--charcoal);background:var(--charcoal);color:var(--white);}
+.scenarios-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.scenario-card{background:var(--white);padding:2rem;border-top:3px solid var(--rule);transition:background .2s;}
+.scenario-card:hover{background:var(--off);}
+.scenario-card[data-type="2yr"]{border-top-color:#0891b2;}
+.scenario-card[data-type="tt"]{border-top-color:var(--amber);}
+.scenario-card[data-type="ten"]{border-top-color:var(--charcoal);}
+.sc-meta{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem;}
+.sc-tag{font-family:var(--mono);font-size:.57rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .45rem;border:1px solid var(--rule);}
+.sc-tag-inst{background:var(--off);color:var(--ink-lt);}
+.sc-tag-issue{background:var(--amber-lt);color:var(--amber-dk);border-color:#fde9b8;}
+.sc-tag-r{font-size:.57rem;font-family:var(--mono);font-weight:500;padding:.18rem .45rem;}
+.sc-tag-r.hi{background:var(--red-lt);color:var(--red);border:1px solid #fecaca;}
+.sc-tag-r.lo{background:var(--green-lt);color:var(--green);border:1px solid #bbf7d0;}
+.sc-title{font-family:var(--display);font-size:.975rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);margin-bottom:.5rem;line-height:1.2;}
+.sc-desc{font-size:.82rem;font-weight:300;color:var(--ink-mid);line-height:1.75;margin-bottom:.75rem;}
+.sc-approach{font-size:.78rem;color:var(--ink-mid);border-top:1px dashed var(--rule);padding-top:.65rem;}
+.sc-approach-lbl{font-family:var(--mono);font-size:.58rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-dk);display:block;margin-bottom:.25rem;}
+
+/* STATEMENTS */
+.statements-section{background:var(--off);}
+.statements-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);}
+.st-card{background:var(--white);padding:1.5rem;transition:background .2s;}
+.st-card:hover{background:var(--amber-pale);}
+.st-org{font-family:var(--mono);font-size:.6rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--amber-dk);margin-bottom:.35rem;}
+.st-title{font-family:var(--display);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;color:var(--ink);margin-bottom:.35rem;line-height:1.25;}
+.st-rel{font-size:.75rem;font-weight:300;color:var(--ink-mid);line-height:1.65;margin-bottom:.5rem;}
+.st-link{font-family:var(--mono);font-size:.6rem;font-weight:500;color:var(--charcoal);text-decoration:none;border-bottom:1px solid var(--rule);display:inline-block;}
+.st-link:hover{color:var(--amber-dk);border-color:var(--amber);}
+
+footer{background:var(--charcoal-m);padding:2rem 3rem;display:flex;justify-content:space-between;align-items:center;border-top:2px solid var(--amber);}
+.footer-name{font-family:var(--display);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--amber);}
+.footer-right{font-family:var(--mono);font-size:.62rem;color:rgba(255,255,255,.3);}
+.footer-right a{color:rgba(255,255,255,.4);text-decoration:none;}
+.footer-right a:hover{color:var(--amber);}
+
+@media(max-width:900px){
+  nav{padding:0 1.5rem;}.nav-links{display:none;}
+  .hero{padding:6rem 1.5rem 2.5rem;}.hero-inner{grid-template-columns:1fr;}
+  .positions-grid,.steps-grid,.scenarios-grid,.statements-grid{grid-template-columns:1fr;}
+  .step-detail.open{grid-template-columns:1fr;}
+  .section{padding:3.5rem 1.5rem;}
+  footer{flex-direction:column;gap:.5rem;text-align:center;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-name">The Writing Program <span>Exchange</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="#positions">Self-Assessment</a></li>
+    <li><a href="#steps">Process</a></li>
+    <li><a href="#scenarios">Scenarios</a></li>
+    <li><a href="#statements">Statements</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">Labor &amp; Advocacy &nbsp;·&nbsp; Resource 02</div>
+      <div class="hero-title">Labor Advocacy<br>Playbook</div>
+      <p class="hero-desc">Decision trees and scenario-based guidance for WPAs navigating course caps, workload, DEI policy challenges, and institutional resistance — across a range of institution types and career positions.</p>
+      <div class="hero-audience"><strong>Use this when:</strong> An administrator asks you to raise course caps, threatens program changes without disciplinary justification, or you need to build a formal case grounded in professional standards.</div>
+    </div>
+    <div style="align-self:end">
+      <a href="Playbook_Reference_Card.pdf" download class="btn-play btn-play-primary">
+        <span class="btn-tag">PDF</span>Download Reference Card
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span class="jump-label">Jump to</span>
+    <a href="#positions" class="jump-btn">Self-Assessment</a>
+    <a href="#steps" class="jump-btn">6-Step Process</a>
+    <a href="#scenarios" class="jump-btn">Scenarios</a>
+    <a href="#statements" class="jump-btn">Statements</a>
+  </div>
+</div>
+
+<!-- SELF ASSESSMENT -->
+<section class="section" id="positions">
+  <div class="container">
+    <div class="section-header"><div class="section-num">00</div><div class="section-title">Before You Act: Know Your Position</div></div>
+    <p class="section-intro">Before engaging in advocacy, assess your institutional power, position type, and risk tolerance. Different positions offer different leverage — and carry different risk. This is not about whether to act, but how.</p>
+    <div class="positions-grid">
+      <div class="pos-card">
+        <div class="pos-type">Position Type A</div>
+        <div class="pos-title">Contingent / NTT / Adjunct</div>
+        <div class="pos-desc">Course leads, long-term adjuncts, visiting instructors, or non-tenure-track lecturers. Limited formal governance power but strong moral authority and closest to policy impacts on students.</div>
+        <span class="risk-tag risk-high">Higher risk — protect yourself first</span>
+        <p style="font-size:.78rem;color:var(--ink-mid);margin-top:.3rem;line-height:1.6">Build coalitions before acting. Document everything. Seek tenured allies before raising issues publicly. Consider anonymous or collective action.</p>
+        <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lt);margin-top:.75rem;margin-bottom:.25rem;">Leverage</div>
+        <div class="leverage-bar"><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot"></div><div class="leverage-dot"></div><div class="leverage-dot"></div></div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-type">Position Type B</div>
+        <div class="pos-title">Tenure-Track / Junior WPA</div>
+        <div class="pos-desc">Assistant professors, early-career WPAs, or faculty in first WPA roles. Pre-tenure vulnerability on some issues; also a moment of genuine formal authority and disciplinary expertise.</div>
+        <span class="risk-tag risk-mod">Moderate risk — strategic action</span>
+        <p style="font-size:.78rem;color:var(--ink-mid);margin-top:.3rem;line-height:1.6">You have formal standing to raise disciplinary issues. Cite CWPA/CCCC standards to depersonalize the argument. Build faculty allies. Document WPA work as scholarship.</p>
+        <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lt);margin-top:.75rem;margin-bottom:.25rem;">Leverage</div>
+        <div class="leverage-bar"><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot"></div><div class="leverage-dot"></div></div>
+      </div>
+      <div class="pos-card">
+        <div class="pos-type">Position Type C</div>
+        <div class="pos-title">Tenured / Experienced WPA</div>
+        <div class="pos-desc">Associate or full professors, established program directors, or WPAs with long institutional tenure. Highest formal protection and institutional credibility. Responsibility to advocate for others.</div>
+        <span class="risk-tag risk-low">Lower risk — act with full authority</span>
+        <p style="font-size:.78rem;color:var(--ink-mid);margin-top:.3rem;line-height:1.6">Lead coalition-building. Bring issues to governance formally. Use your position to protect contingent colleagues. Leverage national profile where applicable.</p>
+        <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-lt);margin-top:.75rem;margin-bottom:.25rem;">Leverage</div>
+        <div class="leverage-bar"><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div><div class="leverage-dot filled"></div></div>
+      </div>
+    </div>
+    <div style="background:var(--amber-lt);border-left:3px solid var(--amber);padding:1.25rem 1.5rem;max-width:860px;font-size:.875rem;color:var(--ink-mid);line-height:1.8;">
+      <strong style="font-family:var(--display);font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--amber-dk);display:block;margin-bottom:.35rem;">Self-Assessment Questions Before Any Action</strong>
+      How long have you been at this institution? What is your job security? Who are your natural allies? What channels exist for raising concerns? Who has the actual authority to change this? What is your risk tolerance — and what is the cost of inaction?
+    </div>
+  </div>
+</section>
+
+<!-- 6 STEPS -->
+<section class="section steps-section" id="steps">
+  <div class="container">
+    <div class="section-header"><div class="section-num">01</div><div class="section-title">The 6-Step Advocacy Process</div></div>
+    <p class="section-intro">Click any step to expand full guidance — including key questions, actionable moves, and relevant professional standards. Steps build on each other but can be used independently.</p>
+
+    <div class="steps-grid" id="steps-grid">
+      <div class="step-card" data-n="1" onclick="toggleStep(1)">
+        <div class="step-icon" id="icon-1">+</div>
+        <div class="step-n">Step 01</div>
+        <div class="step-title">Situational Self-Assessment</div>
+        <div class="step-preview">Evaluate your institutional power, position type, and risk tolerance before acting.</div>
+      </div>
+      <div class="step-card" data-n="2" onclick="toggleStep(2)">
+        <div class="step-icon" id="icon-2">+</div>
+        <div class="step-n">Step 02</div>
+        <div class="step-title">Identify &amp; Connect</div>
+        <div class="step-preview">Map who else is affected, what coalition spaces exist, and how decisions are actually made.</div>
+      </div>
+      <div class="step-card" data-n="3" onclick="toggleStep(3)">
+        <div class="step-icon" id="icon-3">+</div>
+        <div class="step-n">Step 03</div>
+        <div class="step-title">Gather Local Data</div>
+        <div class="step-preview">Collect quantitative and qualitative data in coordination with institutional effectiveness.</div>
+      </div>
+      <div class="step-card" data-n="4" onclick="toggleStep(4)">
+        <div class="step-icon" id="icon-4">+</div>
+        <div class="step-n">Step 04</div>
+        <div class="step-title">Compare to National Standards</div>
+        <div class="step-preview">Locate relevant CCCC, CWPA, TYCA, and MLA statements. Frame local data with disciplinary authority.</div>
+      </div>
+      <div class="step-card" data-n="5" onclick="toggleStep(5)">
+        <div class="step-icon" id="icon-5">+</div>
+        <div class="step-n">Step 05</div>
+        <div class="step-title">Plan a Sharing Event</div>
+        <div class="step-preview">Determine format, audience, and whether to include leadership. Disseminate to build momentum.</div>
+      </div>
+      <div class="step-card" data-n="6" onclick="toggleStep(6)">
+        <div class="step-icon" id="icon-6">+</div>
+        <div class="step-n">Step 06</div>
+        <div class="step-title">Push into Governance or Beyond</div>
+        <div class="step-preview">Official channels, or — if blocked — the Trojan Horse, faculty senate, union, press, or accreditor outreach.</div>
+      </div>
+    </div>
+
+    <!-- DETAIL PANELS inserted by JS between rows -->
+    <div id="detail-1" class="step-detail">
+      <div>
+        <div class="sd-label">Step 01</div>
+        <div class="sd-title">Situational Self-Assessment</div>
+        <div class="sd-body"><p>Before any advocacy move, you need an honest assessment of your institutional context. The goal is not to delay action — it's to ensure the action you take is proportionate to your position and risk tolerance, and targeted at where change is actually possible.</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Key Questions</div>
+          <div class="sd-q">What is your job security — tenure, long-term contract, year-to-year, or adjunct?</div>
+          <div class="sd-q">How long have you been at this institution, and what is your reputation with the relevant decision-makers?</div>
+          <div class="sd-q">What is the worst-case consequence of raising this issue — and can you live with it?</div>
+          <div class="sd-q">What has been tried before on this issue? What happened?</div>
+          <div class="sd-q">Is there a formal governance structure — curriculum committee, faculty senate, collective bargaining?</div>
+          <div class="sd-q">What are the institution's stated priorities right now, and how can you frame your issue within them?</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">Actionable Moves</div>
+        <ul class="sd-list">
+          <li>Write a private memo to yourself laying out your position, power, and goals. This clarifies your thinking and creates a record of your intent.</li>
+          <li>Review your employment contract or faculty handbook for relevant policies before raising the issue formally.</li>
+          <li>Identify 2–3 senior colleagues who have navigated similar issues and ask for informal advice before acting.</li>
+          <li>Map the decision-making structure: who actually has the authority to change this, and where does the formal authority live?</li>
+          <li>Assess the political moment: accreditation cycles, new administrators, program reviews, and budget conversations create openings. Identify yours.</li>
+        </ul>
+        <div class="sd-label">If You Are in a High-Risk Position (NTT/Adjunct)</div>
+        <ul class="sd-list">
+          <li>Identify a tenured ally who can raise the issue with or on your behalf, with full credit to you.</li>
+          <li>Consider anonymous or collective data collection before attaching your name publicly.</li>
+          <li>Know your union contract or collective bargaining agreement if one exists — it may provide formal channels or protections.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="detail-2" class="step-detail">
+      <div>
+        <div class="sd-label">Step 02</div>
+        <div class="sd-title">Identify &amp; Connect</div>
+        <div class="sd-body"><p>Advocacy on structural issues like class size or workload rarely succeeds when it comes from a single person acting alone. This step is about mapping who is affected and building the coalitions that make change possible.</p><p>Coalition-building is different from complaint-sharing. The goal is to find people who are experiencing the same problem, are willing to work toward a solution, and can help you reach decision-makers.</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Key Questions</div>
+          <div class="sd-q">Who else is directly affected — faculty, students, staff, coordinators, writing center directors?</div>
+          <div class="sd-q">What spaces already exist where this issue could be raised — department meetings, program committees, faculty learning communities?</div>
+          <div class="sd-q">Are there administrative allies — deans of students, IR staff, new administrators — who might be sympathetic?</div>
+          <div class="sd-q">What external pressure points exist — accreditation bodies, state systems, professional organizations?</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">Actionable Moves</div>
+        <ul class="sd-list">
+          <li>Hold informal conversations — over coffee, after meetings — before organizing anything formally. Listen more than you speak at this stage.</li>
+          <li>Identify a small core group of 3–5 people who are motivated and well-positioned across different roles and statuses.</li>
+          <li>Map the governance structure: what committees, bodies, or processes have jurisdiction over this issue?</li>
+          <li>Look for natural moments — program reviews, curricular revisions, accreditation self-studies — to raise the issue with built-in institutional urgency.</li>
+          <li>Identify whether your institution has a faculty ombudsperson, faculty senate, or labor union with relevant jurisdiction.</li>
+        </ul>
+        <div class="sd-label">Common Mistakes to Avoid</div>
+        <ul class="sd-list">
+          <li>Don't share private conversations without explicit permission from the other party.</li>
+          <li>Don't assume sympathy equals willingness to act publicly. Ask people directly what they're willing to do.</li>
+          <li>Don't build a coalition through email chains that leave a paper trail before you're ready to go formal.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="detail-3" class="step-detail">
+      <div>
+        <div class="sd-label">Step 03</div>
+        <div class="sd-title">Gather Local Data</div>
+        <div class="sd-body"><p>Administrative decisions are often made with incomplete data. Your job here is to produce a fuller story — one that includes both the metrics administrators already care about (enrollment, SCH, DFW rates, retention) and the disciplinary interpretation of what those numbers mean.</p><p>This is also where Data Feminism matters: ask not just what the data shows, but who produced it, what it was designed to measure, and what it systematically cannot see.</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Data Sources to Pursue</div>
+          <div class="sd-q">Institutional Effectiveness / IR: class size distributions, DFW rates by section, enrollment by course type and modality.</div>
+          <div class="sd-q">Registrar: historical enrollment data, section cap data, waitlist sizes (waitlists prove demand; they document the human cost of caps).</div>
+          <div class="sd-q">Faculty surveys: workload experience, time spent per student per week, feedback capacity.</div>
+          <div class="sd-q">Student surveys: perceived feedback quality, writing center access, sense of connection to instructor.</div>
+          <div class="sd-q">National datasets: CWPA Class Size Database (435+ institutions), CCCC Standards, TYCA Workload data.</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">Data Feminism Checks</div>
+        <ul class="sd-list">
+          <li>Before presenting data, acknowledge its limitations — what it cannot measure and why.</li>
+          <li>Ask whether your data disproportionately represents certain groups (FT faculty over adjuncts, residential over commuter students).</li>
+          <li>Pair quantitative data with qualitative stories — with explicit permission from those whose stories you're sharing.</li>
+          <li>Whose labor produced this data? Acknowledge it. Are those people in the room when the data is presented?</li>
+        </ul>
+        <div class="sd-label">Tools</div>
+        <div style="margin-top:.5rem">
+          <span class="source-pill"><a href="index.html#data">Data Advocacy Guide — Excel Workbook</a></span>
+          <span class="source-pill"><a href="https://ccdigitalpress.org/book/radiant-figures/ch-dfwi.html" target="_blank">Mueller, "Silhouette of DFWI"</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail-4" class="step-detail">
+      <div>
+        <div class="sd-label">Step 04</div>
+        <div class="sd-title">Compare to National Standards</div>
+        <div class="sd-body"><p>One of the most powerful advocacy moves is to depersonalize the argument: this isn't your preference — it's the professional standard of the field. Citing CCCC, CWPA, TYCA, and MLA statements transforms a local complaint into a disciplinary argument with institutional weight.</p><p>The key is to find the statement that most directly addresses your issue, quote it accurately, and contextualize your local data within it.</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Core Standards to Know</div>
+          <div class="sd-q"><strong>CCCC Principles (2023):</strong> No more than 20 students per writing class. Ideally 15. No instructor teaches more than 60 writing students per term.</div>
+          <div class="sd-q"><strong>National median FYC cap</strong> (CWPA dataset, 435+ institutions): <strong>22.</strong> 2-year median: <strong>25.</strong> Only 37% meet the CCCC ≤20 standard.</div>
+          <div class="sd-q"><strong>CWPA Evaluating Intellectual Work (1998):</strong> WPA administration is scholarship and should be evaluated as such in P&amp;T review.</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">How to Use the Standards in a Meeting</div>
+        <ul class="sd-list">
+          <li>Quote the standard directly and accurately. Bring a printed copy. Don't paraphrase if you can quote — precision matters with administrators.</li>
+          <li>Contextualize your data: "Our average cap of 27 is 35% above the CCCC standard — and 7 students above the 2-year college median nationally."</li>
+          <li>Frame as professional ethics, not preference: "This isn't what I want — it's what the field has established as the threshold for effective instruction."</li>
+          <li>If pushed back on, shift to the data: "I'm not asking you to take my word for it — I'm asking you to consider what 417 institutions nationally do."</li>
+          <li>Position the gap as a student success issue: caps above 20 reduce feedback quality, increase DFW rates, and undermine existing retention investments.</li>
+        </ul>
+        <div class="sd-label">Key Statements</div>
+        <div style="margin-top:.5rem">
+          <span class="source-pill"><a href="https://cccc.ncte.org/cccc/resources/positions/postsecondarywriting" target="_blank">CCCC Principles (2023)</a></span>
+          <span class="source-pill"><a href="https://wpacouncil.org/aws/CWPA/pt/sp/statements" target="_blank">CWPA Statements</a></span>
+          <span class="source-pill"><a href="https://ncte.org/groups/tyca/tyca-position-statements/" target="_blank">TYCA Resources</a></span>
+          <span class="source-pill"><a href="https://ncte.org/wp-content/uploads/2021/04/TYC_English_Faculty_Workload.pdf" target="_blank">TYCA Workload White Paper</a></span>
+        </div>
+      </div>
+    </div>
+
+    <div id="detail-5" class="step-detail">
+      <div>
+        <div class="sd-label">Step 05</div>
+        <div class="sd-title">Plan a Sharing Event</div>
+        <div class="sd-body"><p>Once you have data, national context, and a coalition, you need a moment of collective sense-making. This doesn't require a formal presentation — it can be a department retreat activity, a program committee discussion, or a faculty learning community meeting.</p><p>The strategic question: do you include administrative leadership from the start, or build consensus first?</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Key Strategic Decisions</div>
+          <div class="sd-q">What format fits your audience — data presentation, facilitated discussion, workshop, written report?</div>
+          <div class="sd-q">Who should be in the room — faculty only first, or include chairs and deans from the start?</div>
+          <div class="sd-q">What do you want to walk away with — shared understanding, a formal resolution, a committee recommendation?</div>
+          <div class="sd-q">What follow-up structure will sustain momentum after this event?</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">Format Options by Goal</div>
+        <ul class="sd-list">
+          <li><strong>Build internal consensus first:</strong> Faculty workshop using this Playbook; anonymized survey results shared back to participants; program retreat with data presentation.</li>
+          <li><strong>Make the case to administration:</strong> One-page data brief for department chair; program review addendum; accreditation self-study section.</li>
+          <li><strong>Create a shared record:</strong> Program assessment report; faculty senate white paper; joint letter to dean signed by multiple faculty.</li>
+          <li><strong>Accelerate urgency:</strong> Direct conversation with chair using CCCC standards as anchor; formal request for a meeting with dean to present data.</li>
+        </ul>
+        <div class="sd-label">The One-Pager Principle</div>
+        <ul class="sd-list">
+          <li>Administrators often won't read long documents. Prepare a one-pager: your current situation, the national standard, the gap, and one specific bounded ask.</li>
+          <li>Pair the one-pager with a longer evidence document they can consult if they want the full case.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="detail-6" class="step-detail">
+      <div>
+        <div class="sd-label">Step 06</div>
+        <div class="sd-title">Push into Governance or Beyond</div>
+        <div class="sd-body"><p>If you've built momentum, move through official channels: bring a formal proposal to curriculum committee, faculty senate, or the relevant administrative body, framed with disciplinary authority and local data.</p><p>If official channels are blocked, you have other options. The "Trojan Horse" approach embeds your advocacy in an initiative the administration already cares about — accreditation prep, student success, DEI planning. Same data, different frame.</p></div>
+        <div class="sd-qs">
+          <div class="sd-qs-lbl">Decision Framework</div>
+          <div class="sd-q"><strong>Decision-maker is persuadable:</strong> Prepare a formal proposal with data. Go through official channels.</div>
+          <div class="sd-q"><strong>Governance structure with authority exists:</strong> Bring it to curriculum committee, faculty senate, or the relevant body.</div>
+          <div class="sd-q"><strong>Official channels are blocked:</strong> Consider the options below.</div>
+        </div>
+      </div>
+      <div>
+        <div class="sd-label">When Official Channels Are Blocked</div>
+        <ul class="sd-list">
+          <li><strong>The Trojan Horse:</strong> Embed your ask in an initiative the administration already values — accreditation prep, retention initiatives, DEI planning, strategic planning cycles.</li>
+          <li><strong>Faculty Senate / Governance:</strong> Bring a resolution or white paper. Even non-binding resolutions create formal records and signal collective faculty position.</li>
+          <li><strong>Collective Bargaining / Union:</strong> If unionized, contract negotiations or grievance processes may provide formal leverage. Consult your union rep first.</li>
+          <li><strong>Accreditor Outreach:</strong> SACSCOC, HLC, and regional accreditors take student success and learning outcome evidence seriously. Frame your data in accreditation terms to escalate formally.</li>
+          <li><strong>Professional Organizations:</strong> CWPA, CCCC, TYCA, and NCTE can sometimes provide formal letters of concern or consultation to institutions with documented standard violations.</li>
+          <li><strong>Public / Press:</strong> A last resort, appropriate only with severe, well-documented violations and strong institutional documentation. Inside Higher Ed covers these stories.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SCENARIOS -->
+<section class="section scenarios-section" id="scenarios">
+  <div class="container">
+    <div class="section-header"><div class="section-num">02</div><div class="section-title">Scenario Case Studies</div></div>
+    <p class="section-intro">Each scenario shows how the 6-step process plays out in a specific institutional context. Filter by institution type to find the most relevant case.</p>
+    <div class="scenario-filter">
+      <button class="scen-btn active" onclick="filterS('all',this)">All</button>
+      <button class="scen-btn" onclick="filterS('2yr',this)">2-Year College</button>
+      <button class="scen-btn" onclick="filterS('tt',this)">4-Year / Pre-Tenure</button>
+      <button class="scen-btn" onclick="filterS('ten',this)">4-Year / Tenured</button>
+    </div>
+    <div class="scenarios-grid">
+
+      <div class="scenario-card" data-type="2yr">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">Community College · NTT</span><span class="sc-tag sc-tag-issue">Course Caps + Workload</span><span class="sc-tag sc-tag-r hi">Risk: Moderate</span></div>
+        <div class="sc-title">Course Caps &amp; Workload After State Developmental Ed Reforms</div>
+        <div class="sc-desc">A continuing-contract faculty member at a large open-access community college seeks to reduce FYC caps from 27 to 22 following state elimination of non-degree-credit developmental writing. Under the new model, all students — including those previously in developmental sections — are in standard FYC. DFW rates have risen to 33%.</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>Begin with data (Step 03): disaggregate DFW by placement pathway and cap size. Partner with IR to show that the DFW increase correlates with removing developmental support, not instructor failure. Use TYCA's workload data and CCCC Principles as your authority. Frame cap reduction as a student success intervention tied to the institution's retention goals — not a labor complaint.</div>
+      </div>
+
+      <div class="scenario-card" data-type="tt">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">Regional University · Tenure-Track</span><span class="sc-tag sc-tag-issue">DEI Curriculum</span><span class="sc-tag sc-tag-r hi">Risk: Higher</span></div>
+        <div class="sc-title">Preserving Anti-Racist Pedagogy Under "Divisive Concepts" Legislation</div>
+        <div class="sc-desc">A 5th-year tenure-track WPA at a state institution with enacted "divisive concepts" legislation. The composition committee developed anti-racist approaches over three years; new law threatens to constrain syllabi and discussion. The Dean has requested a "compliance review" with no clear guidance on what compliance means.</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>Seek legal clarity first: what does the legislation actually prohibit — not what administrators assume? Consult NCTE's censorship resources and the CCCC Statement on Supporting Students in Discussing Complex Topics. Build a faculty coalition before responding to the Dean. Frame your pedagogy in terms of rhetorical competence and intellectual inquiry — not ideological framing. Document everything.</div>
+      </div>
+
+      <div class="scenario-card" data-type="ten">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">Comprehensive University · Tenured</span><span class="sc-tag sc-tag-issue">Early College / Timeline Pressure</span><span class="sc-tag sc-tag-r lo">Risk: Lower</span></div>
+        <div class="sc-title">Resisting an Under-Resourced Early College Initiative</div>
+        <div class="sc-desc">A tenured WPA is asked by the Dean to launch first-year writing as part of a new Early College program beginning in July — request arriving in late March. The WPA's concerns: instructor qualification, class size, curriculum integrity, student readiness. The Dean is under Board pressure to launch quickly.</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>From relative safety, say "not yet" rather than "no." Use the CCCC Joint Statement on Dual Enrollment (2019) and the Framework for Success in Postsecondary Writing as anchors. Propose conditional agreement: qualified instructors, appropriate caps, curriculum alignment process, adequate timeline. Document your concerns to the Dean in writing. If they proceed without meeting your conditions, the documentation protects you and demonstrates good faith effort.</div>
+      </div>
+
+      <div class="scenario-card" data-type="2yr">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">Community College · Contingent</span><span class="sc-tag sc-tag-issue">Online Section Parity</span><span class="sc-tag sc-tag-r hi">Risk: Higher</span></div>
+        <div class="sc-title">Online Section Caps Higher Than Face-to-Face</div>
+        <div class="sc-desc">An adjunct instructor discovers online FYC sections are capped at 35 while face-to-face sections are capped at 27. Online instructors receive no differential pay or reduced load despite higher caps and different labor demands. No formal policy documentation exists.</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>Anonymize data collection at first. Survey other online instructors informally. Bring data to a tenured ally who can raise it through faculty governance. Use CCCC Principles (which address online specifically) and the TYCA Workload White Paper. Frame as a student equity issue: online students at 35-person caps receive substantially less feedback than 27-person F2F peers. This reframes the argument as student success advocacy, not workload complaint.</div>
+      </div>
+
+      <div class="scenario-card" data-type="tt">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">R1 University · Assistant Professor</span><span class="sc-tag sc-tag-issue">WPA Work + P&amp;T</span><span class="sc-tag sc-tag-r hi">Risk: Moderate</span></div>
+        <div class="sc-title">WPA Work Classified as Service Rather Than Scholarship</div>
+        <div class="sc-desc">A 3rd-year tenure-track WPA receives informal feedback that directing the FYC program is counting as "service" in the tenure review, not research — despite three peer-reviewed articles published about the program and national conference presentations. Pre-tenure review is in six months.</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>Act now, before pre-tenure review. Use the CWPA's "Evaluating the Intellectual Work of Writing Administration" (1998) and the CCCC Scholarship in Rhetoric and Composition Guidelines for Faculty, Deans, and Chairs (2018). Request a meeting with your chair and bring both statements. Propose explicit file language: "program development scholarship" rather than "service." If unresponsive, escalate to the dean with the same documentation.</div>
+      </div>
+
+      <div class="scenario-card" data-type="ten">
+        <div class="sc-meta"><span class="sc-tag sc-tag-inst">Liberal Arts College · Tenured</span><span class="sc-tag sc-tag-issue">Rising Adjunct Ratio</span><span class="sc-tag sc-tag-r lo">Risk: Lower</span></div>
+        <div class="sc-title">75% Adjunct-Taught Sections and Declining Program Coherence</div>
+        <div class="sc-desc">Over five years, the program has gone from 40% to 75% adjunct-taught sections due to budget pressures and unreplaced retirements. The tenured WPA can document increasing inconsistency in course design, declining student satisfaction scores, and rising DFW rates. The Dean attributes DFW increases to "student preparedness."</div>
+        <div class="sc-approach"><span class="sc-approach-lbl">Recommended approach</span>You have data and position to make a strong formal case. Use CCCC Working Conditions for NTT Faculty, TYCA Workload White Paper, and CCCC Best Practices in Faculty Hiring. Present disaggregated data: DFW by instructor type, faculty development participation by instructor type, student satisfaction by section. Propose a specific, costed intervention. Bring to curriculum committee and faculty senate simultaneously for maximum governance pressure.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- POSITION STATEMENTS -->
+<section class="section statements-section" id="statements">
+  <div class="container">
+    <div class="section-header"><div class="section-num">03</div><div class="section-title">Key Position Statements</div></div>
+    <p class="section-intro">The primary disciplinary authorities for labor and advocacy conversations. Bookmark, download, and bring printed copies to meetings when relevant.</p>
+    <div class="statements-grid">
+      <div class="st-card">
+        <div class="st-org">CCCC</div>
+        <div class="st-title">Principles for the Postsecondary Teaching of Writing</div>
+        <div class="st-rel">The foundational document for class size (≤20/≤60) and working conditions. Revised 2023. The single most important statement to cite in workload and cap discussions.</div>
+        <a href="https://cccc.ncte.org/cccc/resources/positions/postsecondarywriting" class="st-link" target="_blank">CCCC Principles (2023) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CWPA</div>
+        <div class="st-title">Evaluating the Intellectual Work of Writing Administration</div>
+        <div class="st-rel">Establishes WPA work as scholarship for P&amp;T evaluation. Essential for tenure-track and pre-tenure WPAs arguing for appropriate evaluation of their administrative work.</div>
+        <a href="https://wpacouncil.org/aws/CWPA/pt/sd/news_article/242849/_PARENT/layout_details/false" class="st-link" target="_blank">CWPA Intellectual Work (1998) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CCCC</div>
+        <div class="st-title">Working Conditions for Non-Tenure-Track Writing Faculty</div>
+        <div class="st-rel">Addresses contract transparency, equitable pay, professional development, and workload for contingent faculty. Key for adjunct and NTT advocacy at any institution type.</div>
+        <a href="https://cccc.ncte.org/cccc/resources/positions/working-conditions-ntt" class="st-link" target="_blank">CCCC NTT Conditions (2016) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">TYCA</div>
+        <div class="st-title">White Paper on Two-Year College English Faculty Workload</div>
+        <div class="st-rel">The most comprehensive empirical documentation of 2-year college workload realities — 1,062 respondents. Directly addresses class size, load, and labor conditions at open-access institutions.</div>
+        <a href="https://ncte.org/wp-content/uploads/2021/04/TYC_English_Faculty_Workload.pdf" class="st-link" target="_blank">TYCA Workload Paper (2021) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CCCC</div>
+        <div class="st-title">Scholarship in Rhetoric, Writing &amp; Composition: Guidelines for Faculty, Deans &amp; Chairs</div>
+        <div class="st-rel">Provides guidelines for evaluating writing studies scholarship in P&amp;T review. Supports WPA work recognition across institution types and position levels.</div>
+        <a href="https://cccc.ncte.org/cccc/resources/positions/scholarshipincomp" class="st-link" target="_blank">CCCC Scholarship Guidelines (2018) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CCCC + CWPA</div>
+        <div class="st-title">Joint Statement on Dual Enrollment in Composition</div>
+        <div class="st-rel">Covers requirements for dual enrollment and early college programs: instructor preparation, curriculum alignment, and adequate timeline. Key for resisting under-resourced early college requests.</div>
+        <a href="https://cccc.ncte.org/cccc/resources/positions/dualenrollment" class="st-link" target="_blank">Dual Enrollment Statement (2019) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CCCC</div>
+        <div class="st-title">Best Practices in Faculty Hiring</div>
+        <div class="st-rel">Standards for ethical hiring in rhetoric and composition. Relevant when advocating for additional tenure-track lines, adjunct-to-FT conversion, or transparent hiring practices.</div>
+        <a href="https://cccc.ncte.org/cccc/resources/positions/faculty-hiring" class="st-link" target="_blank">CCCC Faculty Hiring (2016) →</a>
+      </div>
+      <div class="st-card">
+        <div class="st-org">CWPA</div>
+        <div class="st-title">All CWPA Position Statements</div>
+        <div class="st-rel">Full list including outcomes, plagiarism, workplace bullying, and others. Consult when your specific issue isn't addressed by the statements above — coverage is comprehensive.</div>
+        <a href="https://wpacouncil.org/aws/CWPA/pt/sp/statements" class="st-link" target="_blank">All CWPA Statements →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">The Writing Program Exchange</div>
+  <div class="footer-right">Co-directed by Kirsti Cole (NC State) &amp; Holly Hassel (Michigan Tech) · In partnership with <a href="https://cwpa.org" target="_blank">CWPA</a> · Open Access</div>
+</footer>
+
+<script>
+const detailOrder = {1:0, 2:1, 3:2, 4:3, 5:4, 6:5};
+
+function toggleStep(n) {
+  const isOpen = document.getElementById(`detail-${n}`).classList.contains('open');
+  // close all
+  [1,2,3,4,5,6].forEach(i => {
+    document.getElementById(`detail-${i}`).classList.remove('open');
+    document.querySelector(`[data-n="${i}"]`).classList.remove('open');
+    document.getElementById(`icon-${i}`).textContent = '+';
+    // move detail back after grid if detached
+    const det = document.getElementById(`detail-${i}`);
+    document.querySelector('.steps-section .container').appendChild(det);
+  });
+  if (!isOpen) {
+    const card = document.querySelector(`[data-n="${n}"]`);
+    const detail = document.getElementById(`detail-${n}`);
+    const grid = document.getElementById('steps-grid');
+    card.classList.add('open');
+    detail.classList.add('open');
+    document.getElementById(`icon-${n}`).textContent = '−';
+    // insert after row
+    const cardIndex = Array.from(grid.children).indexOf(card);
+    const rowEndIndex = cardIndex < 3 ? 2 : 5;
+    const rowEndCard = grid.children[rowEndIndex];
+    grid.parentNode.insertBefore(detail, rowEndCard.nextSibling);
+    detail.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+}
+
+function filterS(type, btn) {
+  document.querySelectorAll('.scen-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.scenario-card').forEach(c => {
+    c.style.display = (type === 'all' || c.dataset.type === type) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
