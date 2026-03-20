@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data-Driven Advocacy Guide — The Writing Program Exchange</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/neue-machina" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --amber:#f5a623; --amber-dk:#c4820d; --amber-lt:#fef3c7; --amber-pale:#fef9ec;
+  --charcoal:#1c1c1e; --charcoal-m:#2e2e32;
+  --white:#ffffff; --off:#f7f7f5;
+  --ink:#1a1a1a; --ink-mid:#3d4555; --ink-lt:#6b7280; --rule:#e5e5e3;
+  --green:#15803d; --green-lt:#dcfce7; --red:#dc2626; --red-lt:#fee2e2;
+  --display:'Neue Machina','DM Sans',sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
+}
+html { font-size:16px; scroll-behavior:smooth; }
+body { background:var(--white); color:var(--ink); font-family:var(--sans); font-weight:300; line-height:1.7; -webkit-font-smoothing:antialiased; }
+
+/* NAV */
+nav { position:fixed; top:0; left:0; right:0; z-index:200; background:var(--charcoal); display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:52px; }
+.nav-name { font-family:var(--display); font-size:.82rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+.nav-name span { color:var(--amber); }
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a { font-family:var(--mono); font-size:.63rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.45); text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:var(--amber); }
+
+/* HERO */
+.hero { min-height:60vh; background:var(--white); display:flex; flex-direction:column; justify-content:flex-end; padding:8rem 3rem 3rem; border-bottom:1px solid var(--rule); overflow:hidden; position:relative; }
+.hero::after { content:'DATA'; position:absolute; right:-.02em; bottom:-.1em; font-family:var(--display); font-size:clamp(120px,18vw,280px); font-weight:800; color:rgba(0,0,0,.03); line-height:1; pointer-events:none; }
+.hero-inner { max-width:1160px; margin:0 auto; width:100%; display:grid; grid-template-columns:1fr auto; gap:3rem; align-items:end; }
+.hero-kicker { font-family:var(--mono); font-size:.65rem; font-weight:500; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); margin-bottom:.75rem; display:flex; align-items:center; gap:.75rem; }
+.hero-kicker::before { content:''; display:block; width:24px; height:2px; background:var(--amber); }
+.hero-title { font-family:var(--display); font-size:clamp(2.5rem,6vw,5rem); font-weight:800; text-transform:uppercase; letter-spacing:-.02em; line-height:.95; color:var(--ink); margin-bottom:1.25rem; }
+.hero-desc { font-size:1rem; font-weight:300; color:var(--ink-mid); max-width:600px; line-height:1.85; margin-bottom:1.5rem; }
+.hero-audience { background:var(--amber-lt); border-left:3px solid var(--amber); padding:.75rem 1rem; font-size:.875rem; color:var(--ink-mid); max-width:640px; }
+.hero-audience strong { color:var(--charcoal); font-weight:500; }
+.hero-dl { display:flex; flex-direction:column; gap:.5rem; align-self:end; }
+.btn { display:inline-flex; align-items:center; gap:.6rem; padding:.7rem 1.25rem; font-family:var(--display); font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; text-decoration:none; border:2px solid transparent; transition:all .15s; }
+.btn-dark { background:var(--charcoal); color:var(--white); border-color:var(--charcoal); }
+.btn-dark:hover { background:var(--charcoal-m); transform:translateY(-1px); }
+.btn-amber { background:transparent; color:var(--amber-dk); border-color:var(--amber); }
+.btn-amber:hover { background:var(--amber); color:var(--white); transform:translateY(-1px); }
+.btn-tag { background:rgba(255,255,255,.15); font-size:.58rem; padding:.15rem .4rem; font-family:var(--mono); }
+.btn-amber .btn-tag { background:rgba(196,130,13,.15); }
+
+/* JUMP NAV */
+.jump-nav { background:var(--off); border-bottom:1px solid var(--rule); position:sticky; top:52px; z-index:100; }
+.jump-nav-inner { max-width:1160px; margin:0 auto; padding:.6rem 3rem; display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+.jump-label { font-family:var(--mono); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-lt); margin-right:.5rem; }
+.jump-btn { font-family:var(--mono); font-size:.62rem; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-lt); text-decoration:none; padding:.2rem .65rem; border:1.5px solid transparent; transition:all .15s; }
+.jump-btn:hover, .jump-btn.active { border-color:var(--charcoal); color:var(--charcoal); }
+
+/* SHARED */
+.section { padding:5rem 3rem; }
+.container { max-width:1160px; margin:0 auto; }
+.section-header { display:flex; align-items:baseline; gap:1.25rem; margin-bottom:2.5rem; padding-bottom:1rem; border-bottom:2px solid var(--ink); }
+.section-num { font-family:var(--display); font-size:3rem; font-weight:800; color:rgba(0,0,0,.06); line-height:1; }
+.section-title { font-family:var(--display); font-size:clamp(1.5rem,3vw,2.25rem); font-weight:800; text-transform:uppercase; letter-spacing:.01em; }
+.section-intro { font-size:.975rem; font-weight:300; color:var(--ink-mid); max-width:680px; margin-bottom:3rem; line-height:1.9; }
+
+/* HEURISTICS */
+.heuristics-section { background:var(--white); }
+.heuristic-block { border:1px solid var(--rule); border-top:3px solid var(--amber); padding:2.5rem; margin-bottom:2rem; }
+.heuristic-block.alt { border-top-color:var(--charcoal); }
+.hb-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber-dk); margin-bottom:.5rem; }
+.heuristic-block.alt .hb-label { color:var(--ink-lt); }
+.hb-title { font-family:var(--display); font-size:1.1rem; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--ink); margin-bottom:1.25rem; }
+.hb-grid { display:grid; grid-template-columns:1fr 1fr; gap:.75rem 2.5rem; }
+.hb-item { font-size:.875rem; font-weight:300; color:var(--ink-mid); padding-left:1.1rem; position:relative; line-height:1.7; }
+.hb-item::before { content:'→'; position:absolute; left:0; color:var(--amber); font-size:.7rem; top:.28rem; }
+.heuristic-block.alt .hb-item::before { color:var(--ink-lt); }
+.hb-item strong { font-weight:500; color:var(--ink); }
+
+/* DATA FEMINISM */
+.df-section { background:var(--off); }
+.df-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+.df-callout { background:var(--charcoal); color:var(--white); padding:2.5rem; }
+.df-callout-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:.75rem; }
+.df-callout-title { font-family:var(--display); font-size:1.3rem; font-weight:800; text-transform:uppercase; letter-spacing:.02em; color:var(--white); margin-bottom:1rem; line-height:1.1; }
+.df-callout-body { font-size:.9rem; font-weight:300; color:rgba(255,255,255,.7); line-height:1.85; }
+.df-callout-body p { margin-bottom:.75rem; }
+.df-questions { list-style:none; margin-top:1.25rem; }
+.df-q { font-size:.85rem; font-weight:300; color:rgba(255,255,255,.7); padding:.4rem 0 .4rem 1.25rem; position:relative; border-bottom:1px solid rgba(255,255,255,.08); line-height:1.6; }
+.df-q::before { content:'→'; position:absolute; left:0; color:var(--amber); font-size:.7rem; top:.5rem; }
+.df-principles { }
+.df-principle { padding:1.25rem 0; border-bottom:1px solid var(--rule); }
+.df-principle:last-child { border-bottom:none; }
+.df-p-num { font-family:var(--mono); font-size:.58rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber-dk); margin-bottom:.25rem; }
+.df-p-title { font-family:var(--display); font-size:.9rem; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--ink); margin-bottom:.35rem; }
+.df-p-body { font-size:.85rem; font-weight:300; color:var(--ink-mid); line-height:1.75; }
+
+/* BENCHMARKS */
+.benchmarks-section { background:var(--white); }
+.stat-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); margin-bottom:2.5rem; }
+.stat-card { background:var(--white); padding:1.75rem; }
+.stat-num { font-family:var(--display); font-size:2.75rem; font-weight:800; color:var(--amber); line-height:1; letter-spacing:-.02em; margin-bottom:.35rem; }
+.stat-num.above { color:var(--red); }
+.stat-num.ok { color:var(--green); }
+.stat-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-lt); line-height:1.5; }
+.stat-note { font-size:.75rem; font-weight:300; color:var(--ink-lt); margin-top:.35rem; line-height:1.5; }
+
+.bench-table { width:100%; border-collapse:collapse; border:1px solid var(--rule); font-size:.875rem; margin-bottom:2rem; }
+.bench-table th { font-family:var(--display); font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; padding:.875rem 1.25rem; text-align:left; background:var(--charcoal); color:var(--white); }
+.bench-table th:nth-child(n+2) { text-align:center; }
+.bench-table td { padding:.75rem 1.25rem; border-bottom:1px solid var(--rule); vertical-align:middle; font-weight:300; color:var(--ink-mid); }
+.bench-table td:nth-child(n+2) { text-align:center; font-family:var(--mono); font-size:.85rem; }
+.bench-table tr:last-child td { border-bottom:none; }
+.bench-table tr:nth-child(even) td { background:var(--off); }
+.bench-table tr:hover td { background:var(--amber-pale); }
+.bench-table td:first-child { font-weight:400; color:var(--ink); }
+.cccc-col { color:var(--green) !important; font-weight:500 !important; }
+
+.dist-section { margin-top:2.5rem; }
+.dist-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber-dk); margin-bottom:1rem; display:flex; align-items:center; gap:.75rem; }
+.dist-label::before { content:''; display:block; width:20px; height:2px; background:var(--amber); }
+.dist-bars { display:flex; flex-direction:column; gap:4px; }
+.dist-row { display:grid; grid-template-columns:48px 1fr 52px 130px; gap:.75rem; align-items:center; }
+.dist-cap { font-family:var(--mono); font-size:.7rem; font-weight:500; color:var(--ink-lt); text-align:right; }
+.dist-bar-wrap { background:var(--rule); height:16px; position:relative; }
+.dist-bar { height:100%; transition:width .3s; }
+.dist-bar.above { background:var(--red-lt); border-right:2px solid var(--red); }
+.dist-bar.at { background:var(--green-lt); border-right:2px solid var(--green); }
+.dist-bar.below { background:var(--amber-lt); border-right:2px solid var(--amber); }
+.dist-pct { font-family:var(--mono); font-size:.7rem; color:var(--ink-lt); }
+.dist-status { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.04em; text-transform:uppercase; }
+.dist-status.above { color:var(--red); }
+.dist-status.at { color:var(--green); }
+.dist-status.below { color:var(--amber-dk); }
+
+.bench-callout { background:var(--amber-lt); border-left:3px solid var(--amber); padding:1.25rem 1.5rem; font-size:.875rem; color:var(--ink-mid); line-height:1.85; margin-top:2rem; }
+.bench-callout strong { color:var(--ink); font-weight:500; }
+
+/* DFW */
+.dfw-section { background:var(--off); }
+.dfw-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); }
+.dfw-step { background:var(--white); padding:2rem; border-top:3px solid var(--rule); transition:background .2s; }
+.dfw-step:nth-child(odd) { border-top-color:var(--amber); }
+.dfw-step:nth-child(even) { border-top-color:var(--charcoal); }
+.dfw-step:hover { background:var(--amber-pale); }
+.dfw-n { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:.35rem; }
+.dfw-title { font-family:var(--display); font-size:.95rem; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--ink); margin-bottom:.5rem; line-height:1.2; }
+.dfw-body { font-size:.85rem; font-weight:300; color:var(--ink-mid); line-height:1.8; }
+.dfw-body ul { list-style:none; margin-top:.5rem; }
+.dfw-body li { padding:.2rem 0 .2rem 1rem; position:relative; }
+.dfw-body li::before { content:'→'; position:absolute; left:0; color:var(--amber); font-size:.65rem; top:.32rem; }
+.dfw-bottom { background:var(--charcoal); padding:2rem; grid-column:1/-1; }
+.dfw-bottom-label { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:.75rem; }
+.dfw-bottom-body { font-size:.9rem; font-weight:300; color:rgba(255,255,255,.7); line-height:1.85; max-width:860px; }
+
+/* DOWNLOADS */
+.downloads-section { background:var(--charcoal); padding:4rem 3rem; }
+.downloads-inner { max-width:1160px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:1px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); }
+.dl-card { background:rgba(255,255,255,.03); padding:2.5rem; }
+.dl-tag { font-family:var(--mono); font-size:.6rem; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:.75rem; }
+.dl-title { font-family:var(--display); font-size:1.1rem; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--white); margin-bottom:.5rem; line-height:1.1; }
+.dl-desc { font-size:.875rem; font-weight:300; color:rgba(255,255,255,.55); line-height:1.8; margin-bottom:1.25rem; }
+.dl-contents { list-style:none; margin-bottom:1.5rem; }
+.dl-contents li { font-family:var(--mono); font-size:.7rem; color:rgba(255,255,255,.4); padding:.25rem 0 .25rem 1rem; position:relative; border-bottom:1px solid rgba(255,255,255,.06); }
+.dl-contents li::before { content:'·'; position:absolute; left:0; color:var(--amber); }
+
+footer { background:var(--charcoal-m); padding:2rem 3rem; display:flex; justify-content:space-between; align-items:center; border-top:2px solid var(--amber); }
+.footer-name { font-family:var(--display); font-size:.82rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--amber); }
+.footer-right { font-family:var(--mono); font-size:.62rem; color:rgba(255,255,255,.3); }
+.footer-right a { color:rgba(255,255,255,.4); text-decoration:none; }
+.footer-right a:hover { color:var(--amber); }
+
+@media(max-width:900px){
+  nav { padding:0 1.5rem; } .nav-links { display:none; }
+  .hero { padding:6rem 1.5rem 2.5rem; } .hero-inner { grid-template-columns:1fr; }
+  .hb-grid { grid-template-columns:1fr; }
+  .df-grid { grid-template-columns:1fr; }
+  .stat-grid { grid-template-columns:repeat(2,1fr); }
+  .dfw-grid { grid-template-columns:1fr; }
+  .downloads-inner { grid-template-columns:1fr; }
+  .section { padding:3.5rem 1.5rem; }
+  footer { flex-direction:column; gap:.5rem; text-align:center; }
+  .downloads-section { padding:3rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">The Writing Program <span>Exchange</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html#resources">Resources</a></li>
+    <li><a href="#heuristics">Heuristics</a></li>
+    <li><a href="#benchmarks">Benchmarks</a></li>
+    <li><a href="#dfw">DFW Guide</a></li>
+    <li><a href="#df">Data Feminism</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-kicker">Data &amp; Visualization &nbsp;·&nbsp; Resource 03</div>
+      <div class="hero-title">Data-Driven<br>Advocacy Guide</div>
+      <p class="hero-desc">Heuristics, national benchmarks, and frameworks for collecting, analyzing, and presenting program data to make persuasive, ethical arguments to administrators — grounded in real data from 435+ institutions.</p>
+      <div class="hero-audience"><strong>Use this when:</strong> An administrator raises DFW rates, questions your class sizes, or asks you to justify your program's resource needs. Also use it before those conversations happen.</div>
+    </div>
+    <div class="hero-dl">
+      <a href="Data_Advocacy_Guide.xlsx" download class="btn btn-dark">
+        <span class="btn-tag">XLS</span>Download Full Workbook
+      </a>
+      <a href="Data_Advocacy_Reference_Card.pdf" download class="btn btn-amber">
+        <span class="btn-tag">PDF</span>Download Reference Card
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- JUMP NAV -->
+<div class="jump-nav">
+  <div class="jump-nav-inner">
+    <span class="jump-label">Jump to</span>
+    <a href="#heuristics" class="jump-btn">Heuristics</a>
+    <a href="#df" class="jump-btn">Data Feminism</a>
+    <a href="#benchmarks" class="jump-btn">National Benchmarks</a>
+    <a href="#dfw" class="jump-btn">DFW Contextualization</a>
+  </div>
+</div>
+
+<!-- HEURISTICS -->
+<section class="section heuristics-section" id="heuristics">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title">Planning &amp; Visualization Heuristics</div>
+    </div>
+    <p class="section-intro">Before collecting or presenting any data, work through these questions. They are not a checklist — they are a thinking framework for every stage of the advocacy lifecycle, from exigence to circulation.</p>
+
+    <div class="heuristic-block">
+      <div class="hb-label">Heuristic 01 — Planning Your Advocacy</div>
+      <div class="hb-title">Questions to Ask Before You Start</div>
+      <div class="hb-grid">
+        <div class="hb-item">What is happening — what is the <strong>exigence</strong> for this advocacy, and why now?</div>
+        <div class="hb-item">What is your <strong>goal</strong>? What genre does your audience expect — report, dashboard, one-pager, presentation?</div>
+        <div class="hb-item">Who is your <strong>audience</strong>, and what data is legible and credible to them?</div>
+        <div class="hb-item">Where did this data come from? What <strong>biases or limitations</strong> should you acknowledge?</div>
+        <div class="hb-item">Who can help with <strong>data collection and analysis</strong> — IR, registrar, faculty governance?</div>
+        <div class="hb-item">What <strong>scholarship and national standards</strong> can anchor your case?</div>
+        <div class="hb-item">Are you making a <strong>comparison</strong>? What is the appropriate benchmark — national, sector, peer institution?</div>
+        <div class="hb-item">What are the <strong>limitations</strong> of your data, and how will you name them transparently?</div>
+        <div class="hb-item">What <strong>language</strong> is legible to your audience? (enrollment, SCH, retention rate, DFW rate)</div>
+        <div class="hb-item">What is your <strong>circulation plan</strong> — who sees this, when, and through what channel?</div>
+      </div>
+    </div>
+
+    <div class="heuristic-block alt">
+      <div class="hb-label">Heuristic 02 — Class Size Case Study</div>
+      <div class="hb-title">Visualizing Class Size Data for Different Stakeholders</div>
+      <div class="hb-grid">
+        <div class="hb-item"><strong>For campus leaders:</strong> Dashboard showing average class size by department overlaid with cost and Student Credit Hour (SCH) data. Frame caps as a lever for retention, not just a labor issue.</div>
+        <div class="hb-item"><strong>For faculty governance:</strong> Class size distributions by course type and modality, with student learning outcomes alongside cap size. Show the learning rationale.</div>
+        <div class="hb-item"><strong>For public advocacy:</strong> Before/after comparison — class size changes correlated with retention rates or student satisfaction scores. Use the national distribution chart.</div>
+        <div class="hb-item"><strong>Equity check:</strong> Are low-enrollment sections (independent studies, honors, internships) distorting your averages? Disaggregate by section type before computing means.</div>
+        <div class="hb-item"><strong>Transparency rule:</strong> Every visualization must include its data source, collection date, and known limitations. Non-negotiable.</div>
+        <div class="hb-item"><strong>Framing principle:</strong> Position class size as a lever for student success, not a cost or labor complaint. Cite CCCC's standard as disciplinary authority — not personal preference.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA FEMINISM -->
+<section class="section df-section" id="df">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title">Data Feminism Framework</div>
+    </div>
+    <p class="section-intro">Drawing on D'Ignazio &amp; Klein's <em>Data Feminism</em> (MIT Press, 2020), this framework asks WPAs to attend to power at every stage of data work — not just what the data shows, but who produced it, for whom, and to what ends.</p>
+
+    <div class="df-grid">
+      <div class="df-callout">
+        <div class="df-callout-label">Core Principle</div>
+        <div class="df-callout-title">Data Is Never Neutral</div>
+        <div class="df-callout-body">
+          <p>The DFW "problem" is often framed in ways that locate failure in students or instructors — not in institutional systems, resource allocation, or working conditions. The act of naming that frame is the first step to changing it.</p>
+          <p>Similarly, class size data is routinely presented as an efficiency metric. A feminist data approach asks who is harmed by that framing — and positions the same numbers as a student success and labor equity argument instead.</p>
+        </div>
+        <ul class="df-questions">
+          <li class="df-q"><strong>Who collected this data?</strong> With what purposes? At whose expense?</li>
+          <li class="df-q"><strong>Whose goals</strong> are foregrounded — retention metrics? Cost reduction? Student learning?</li>
+          <li class="df-q"><strong>Who benefits</strong> from the current framing of this data — and who does not?</li>
+          <li class="df-q"><strong>What is not counted?</strong> What working conditions, student needs, or structural factors are invisible in the metric?</li>
+          <li class="df-q"><strong>Who is harmed</strong> by the dominant interpretation of this data?</li>
+          <li class="df-q"><strong>Whose labor</strong> produced this data — and are they credited?</li>
+        </ul>
+      </div>
+
+      <div class="df-principles">
+        <div class="df-principle">
+          <div class="df-p-num">Principle 01</div>
+          <div class="df-p-title">Examine Power</div>
+          <div class="df-p-body">Data analysis and presentation are not neutral acts. Ask who has the power to collect, interpret, and act on data — and who does not. IR offices, provosts, and accreditors do not collect the same data WPAs need.</div>
+        </div>
+        <div class="df-principle">
+          <div class="df-p-num">Principle 02</div>
+          <div class="df-p-title">Challenge Binaries &amp; Hierarchies</div>
+          <div class="df-p-body">Administrative data systems often flatten complexity: pass/fail, enrolled/not enrolled, retained/not retained. Your advocacy work should surface the variation within those categories — especially by race, income, first-gen status, and modality.</div>
+        </div>
+        <div class="df-principle">
+          <div class="df-p-num">Principle 03</div>
+          <div class="df-p-title">Elevate Emotion &amp; Embodiment</div>
+          <div class="df-p-body">Pair quantitative data with qualitative stories — with explicit permission. A statistic about DFW rates is abstract. A faculty member's account of what happens at week 10 in a 30-person section is not.</div>
+        </div>
+        <div class="df-principle">
+          <div class="df-p-num">Principle 04</div>
+          <div class="df-p-title">Rethink Defaults &amp; Binaries</div>
+          <div class="df-p-body">The "default" in most institutional data is the average full-time, traditional-age residential student. Check whether your data is being read through that lens — and name it when it is.</div>
+        </div>
+        <div class="df-principle">
+          <div class="df-p-num">Principle 05</div>
+          <div class="df-p-title">Consider Context</div>
+          <div class="df-p-body">A 25% DFW rate at an open-access community college serving high proportions of working adults is not the same number as 25% at a selective residential university. Context is not a caveat — it is the analysis.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NATIONAL BENCHMARKS -->
+<section class="section benchmarks-section" id="benchmarks">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title">National Course Cap Benchmarks</div>
+    </div>
+    <p class="section-intro">Real data from 435+ institutions collected through the CWPA community. Use these figures to contextualize your local caps against national practice — and against the CCCC professional standard.</p>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num above">22</div>
+        <div class="stat-label">National FYC / 101<br>Median Cap</div>
+        <div class="stat-note">2 above the CCCC max of 20 · N = 417 institutions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num above">25</div>
+        <div class="stat-label">2-Year College<br>Median Cap</div>
+        <div class="stat-note">5 above the CCCC standard · N = 101 two-year colleges</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num ok">37%</div>
+        <div class="stat-label">Institutions Meeting<br>CCCC ≤20 Standard</div>
+        <div class="stat-note">63% of institutions exceed the professional threshold</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num above">25</div>
+        <div class="stat-label">Most Common<br>Single Cap</div>
+        <div class="stat-note">22% of all institutions — 25% above CCCC standard</div>
+      </div>
+    </div>
+
+    <table class="bench-table">
+      <thead>
+        <tr>
+          <th>Course Type</th>
+          <th>N Institutions</th>
+          <th>Min</th>
+          <th>Max</th>
+          <th>Mean</th>
+          <th>Median</th>
+          <th>CCCC Standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>FYC / 101 — All Institutions</td>
+          <td>417</td><td>12</td><td>39</td><td>22.3</td><td>22</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+        <tr>
+          <td>FYC / 101 — 2-Year Colleges Only</td>
+          <td>101</td><td>18</td><td>39</td><td>25.4</td><td>25</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+        <tr>
+          <td>FYC / 101 — 4-Year Institutions</td>
+          <td>286</td><td>12</td><td>35</td><td>21.2</td><td>22</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+        <tr>
+          <td>Basic Writing / Developmental</td>
+          <td>216</td><td>10</td><td>35</td><td>19.3</td><td>20</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+        <tr>
+          <td>Second Semester / 102</td>
+          <td>174</td><td>15</td><td>30</td><td>23.1</td><td>24</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+        <tr>
+          <td>Online Sections</td>
+          <td>83</td><td>2</td><td>35</td><td>22.4</td><td>23</td>
+          <td class="cccc-col">≤ 20</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dist-section">
+      <div class="dist-label">FYC Cap Distribution — Where Do Institutions Cluster?</div>
+      <div class="dist-bars">
+        <div class="dist-row"><span class="dist-cap">12–14</span><div class="dist-bar-wrap"><div class="dist-bar below" style="width:2%"></div></div><span class="dist-pct">1.4%</span><span class="dist-status below">Below CCCC ideal</span></div>
+        <div class="dist-row"><span class="dist-cap">15</span><div class="dist-bar-wrap"><div class="dist-bar at" style="width:5%"></div></div><span class="dist-pct">4.6%</span><span class="dist-status at">CCCC ideal (≤15)</span></div>
+        <div class="dist-row"><span class="dist-cap">16–19</span><div class="dist-bar-wrap"><div class="dist-bar at" style="width:10%"></div></div><span class="dist-pct">10.3%</span><span class="dist-status at">Below CCCC max</span></div>
+        <div class="dist-row"><span class="dist-cap">20</span><div class="dist-bar-wrap"><div class="dist-bar at" style="width:14%"></div></div><span class="dist-pct">13.9%</span><span class="dist-status at">At CCCC standard</span></div>
+        <div class="dist-row"><span class="dist-cap">21</span><div class="dist-bar-wrap"><div class="dist-bar at" style="width:1%"></div></div><span class="dist-pct">0.7%</span><span class="dist-status at">At CCCC standard</span></div>
+        <div class="dist-row"><span class="dist-cap">22</span><div class="dist-bar-wrap"><div class="dist-bar above" style="width:13%"></div></div><span class="dist-pct">12.7%</span><span class="dist-status above">Above standard</span></div>
+        <div class="dist-row"><span class="dist-cap">23–24</span><div class="dist-bar-wrap"><div class="dist-bar above" style="width:14%"></div></div><span class="dist-pct">14.2%</span><span class="dist-status above">Above standard</span></div>
+        <div class="dist-row"><span class="dist-cap">25</span><div class="dist-bar-wrap"><div class="dist-bar above" style="width:22%"></div></div><span class="dist-pct">22.1%</span><span class="dist-status above">Most common cap</span></div>
+        <div class="dist-row"><span class="dist-cap">26–29</span><div class="dist-bar-wrap"><div class="dist-bar above" style="width:7%"></div></div><span class="dist-pct">7.2%</span><span class="dist-status above">Above standard</span></div>
+        <div class="dist-row"><span class="dist-cap">30+</span><div class="dist-bar-wrap"><div class="dist-bar above" style="width:5%"></div></div><span class="dist-pct">5.3%</span><span class="dist-status above">Significantly above</span></div>
+      </div>
+    </div>
+
+    <div class="bench-callout">
+      <strong>Key finding for advocacy:</strong> The most common single FYC cap nationally is 25 — 25% above the CCCC standard. The national median is 22. At two-year colleges, the median is 25. Only 37% of institutions in this dataset meet the ≤20 threshold. Use these figures to show administrators that your program's caps reflect sector-wide patterns, not individual program failure — and that the professional standard is <em>widely</em> unmet, making your case for change a systemic argument, not a local complaint.
+      <div style="margin-top:.75rem; font-family:var(--mono); font-size:.65rem; color:var(--amber-dk);">Source: CWPA Community-Sourced Class Size Database, 435+ institutions · via The Writing Program Exchange (2025)</div>
+    </div>
+  </div>
+</section>
+
+<!-- DFW CONTEXTUALIZATION -->
+<section class="section dfw-section" id="dfw">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title">DFW Contextualization Guide</div>
+    </div>
+    <p class="section-intro">When administrators raise DFW rates, your first move is to slow down the conversation and gather the data that tells a fuller story. This five-step framework gives you the structure to do that — and the language to make the case that a single DFW rate, without context, produces premature interventions that don't address root causes.</p>
+
+    <div class="dfw-grid">
+      <div class="dfw-step">
+        <div class="dfw-n">Step 01</div>
+        <div class="dfw-title">Slow Down &amp; Contextualize Nationally</div>
+        <div class="dfw-body">
+          <p>Before anything else: what is the national range for DFW rates in composition, for your institution type? A 22% DFW rate at an open-access community college is not the same problem as 22% at a selective 4-year institution.</p>
+          <p>Your first move is to ask for time to gather context — not to defend, not to promise fixes, and not to accept the premise that the rate is simply "high."</p>
+        </div>
+      </div>
+
+      <div class="dfw-step">
+        <div class="dfw-n">Step 02</div>
+        <div class="dfw-title">Assess Your Student Support Infrastructure</div>
+        <div class="dfw-body">
+          <p>Before attributing DFW rates to curriculum or instruction, ask:</p>
+          <ul>
+            <li>What general learning support is available — and how do students access it?</li>
+            <li>What reading and literacy support exists?</li>
+            <li>What writing center resources are available, and are they proactive or reactive?</li>
+            <li>What ELL / multilingual student support is in place?</li>
+            <li>Does the institution actively connect students to support — or wait for self-referral?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dfw-step">
+        <div class="dfw-n">Step 03</div>
+        <div class="dfw-title">Disaggregate Your DFW Data</div>
+        <div class="dfw-body">
+          <p>A single DFW rate hides enormous variation. Push for disaggregated data:</p>
+          <ul>
+            <li>By course type (101/102/developmental/ALP)</li>
+            <li>By modality (face-to-face / online / hybrid)</li>
+            <li>By student demographics (first-gen, Pell-eligible, ELL)</li>
+            <li>By section cap size (≤20 vs. 21–25 vs. 26+)</li>
+            <li>By instructor type (FT/TT vs. adjunct vs. lecturer)</li>
+          </ul>
+          <p style="margin-top:.5rem; font-size:.8rem;">See Derek Mueller's <a href="https://ccdigitalpress.org/book/radiant-figures/ch-dfwi.html" target="_blank" style="color:var(--amber-dk);">"Silhouette of DFWI"</a> for visualization approaches.</p>
+        </div>
+      </div>
+
+      <div class="dfw-step">
+        <div class="dfw-n">Step 04</div>
+        <div class="dfw-title">Gather Faculty &amp; Student Perspectives</div>
+        <div class="dfw-body">
+          <p>Quantitative data alone won't explain what's happening. Gather qualitative data:</p>
+          <ul>
+            <li><strong>Faculty survey:</strong> Why did each student receive a DFW grade? What resources were available to refer them to?</li>
+            <li><strong>Faculty focus groups:</strong> What patterns do instructors see? What support can and can't they provide given workload?</li>
+            <li><strong>Student survey:</strong> What were the barriers? What would have helped? What did the institution not provide?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dfw-step" style="grid-column:1/-1; border-top-color:var(--amber);">
+        <div class="dfw-n">Step 05</div>
+        <div class="dfw-title">Connect DFW to Faculty Working Conditions</div>
+        <div class="dfw-body" style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+          <div>
+            <p>The relationship between faculty working conditions and DFW rates is direct but routinely ignored in administrative conversations. Surface it explicitly:</p>
+            <ul style="margin-top:.5rem;">
+              <li>Instructors with 25+ students cannot provide the timely, substantive feedback that prevents Ws and Fs</li>
+              <li>Contingent faculty with multiple jobs across campuses cannot provide adequate office hours or early intervention</li>
+              <li>High adjunct ratios correlate with higher DFW rates in multiple program-level studies</li>
+            </ul>
+          </div>
+          <div>
+            <p><strong>The question to surface:</strong> How do our faculty working conditions affect our ability to provide the early intervention and feedback quality that prevents DFW grades?</p>
+            <p style="margin-top:.75rem;">This reframes the conversation: DFW is not primarily a curriculum problem or a student preparation problem — it is a resource allocation problem. The solution is not a new assignment sequence. It is smaller classes, better-supported faculty, and proactive student services.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS -->
+<section class="downloads-section">
+  <div class="downloads-inner">
+    <div class="dl-card">
+      <div class="dl-tag">Excel Workbook</div>
+      <div class="dl-title">Full Data Advocacy Guide</div>
+      <div class="dl-desc">A five-tab workbook combining real national data with your institutional inputs — produces comparison dashboards automatically once you enter your program's figures.</div>
+      <ul class="dl-contents">
+        <li>Tab 1 — How to Use: purpose, structure, suggested use cases</li>
+        <li>Tab 2 — National Benchmarks: full statistics from 435+ institutions</li>
+        <li>Tab 3 — My Institution: yellow input cells for your program data</li>
+        <li>Tab 4 — Comparison Dashboard: auto-generates charts vs. CCCC &amp; national median</li>
+        <li>Tab 5 — DFW Contextualization: guided 5-step framework with questions</li>
+      </ul>
+      <a href="Data_Advocacy_Guide.xlsx" download class="btn btn-dark">
+        <span class="btn-tag" style="background:rgba(255,255,255,.12)">XLS</span>Download Full Workbook
+      </a>
+    </div>
+    <div class="dl-card">
+      <div class="dl-tag">PDF Reference Card</div>
+      <div class="dl-title">Heuristics Reference Card</div>
+      <div class="dl-desc">A two-page landscape reference card designed to be printed before a meeting with a dean or provost. Covers both heuristics, the Data Feminism framework, national statistics, and the DFW contextualization guide.</div>
+      <ul class="dl-contents">
+        <li>Page 1 — Heuristic 01: Planning Your Advocacy (10 questions)</li>
+        <li>Page 1 — Heuristic 02: Class Size Case Study + audience guidance</li>
+        <li>Page 1 — Data Feminism framework + national stats at a glance</li>
+        <li>Page 2 — DFW Contextualization 5-step table</li>
+        <li>Page 2 — Data Feminism reminder callout</li>
+      </ul>
+      <a href="Data_Advocacy_Reference_Card.pdf" download class="btn btn-amber">
+        <span class="btn-tag">PDF</span>Download Reference Card
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">The Writing Program Exchange</div>
+  <div class="footer-right">Co-directed by Kirsti Cole (NC State) &amp; Holly Hassel (Michigan Tech) · In partnership with <a href="https://cwpa.org" target="_blank">CWPA</a> · Open Access</div>
+</footer>
+
+</body>
+</html>
