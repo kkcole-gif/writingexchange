@@ -1405,6 +1405,129 @@ footer {
 </script>
 </body>
 </html>
+<script>
+(function () {
+  const INDEX = [
+    { title:"Student Success / Retention / Graduation Rate", body:"High-Impact Practice, Metacognition, Transfer of Learning. Writing-intensive courses contribute to engagement, persistence, and long-term success.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Foundational Literacies", body:"Rhetorical Competence, Genre Awareness, Multimodal Communication. Functional reading, writing, and communication skills for general education.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Workforce Readiness / Competency-Based Learning", body:"Rhetorical Agility, Genre Fluency, Professional & Technical Communication. Adapt communication to diverse audiences, purposes, and professional contexts.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Curricular Reform / General Education Reform", body:"WAC/WID, Programmatic Coherence, Pedagogical Expertise. Writing instruction requires disciplinary knowledge; sequencing and articulation matter.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Operational Efficiency", body:"Recursive Writing Process, Human Agency, AI Literacy, Labor Equity. GenAI should augment, not replace, expert human judgment.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Accreditation / Quality Improvement", body:"Programmatic Assessment, Learning Outcomes, Faculty Development. Systematic evaluation of programs and instruction.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Employee Well-Being", body:"Class Size, Faculty Workload, Faculty Roles and Responsibilities. Institutional reputation and faculty and staff health.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Entrepreneurial Mindset / Innovation", body:"Writing-to-Learn, Rhetorical Inquiry. Fostering curiosity and initiative, often in STEM and engineering contexts.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Campus Partnerships / Experiential Learning", body:"Service-Learning, Public Writing, Community Engagement. Connecting to local communities and hands-on learning.", tag:"Crosswalk", url:"crosswalk_resource.html" },
+    { title:"Step 01 — Situational Self-Assessment", body:"Evaluate your institutional power, position type, and risk tolerance before acting. Know your leverage and limits. What is your job security? Who has actual authority over this issue?", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Step 02 — Identify and Connect", body:"Map who else is affected, what coalition spaces exist, and how decisions are made. Build coalitions before going formal. Listen more than you speak at this stage.", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Step 03 — Gather Local Data", body:"Collect quantitative and qualitative data in coordination with institutional effectiveness and registrar. DFW rates, class sizes, enrollment by modality, faculty workload surveys.", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Step 04 — Compare to National Standards", body:"CCCC: no more than 20 students per writing class, no more than 60 per instructor per term. National median FYC cap is 22. Only 37% of institutions meet the standard.", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Step 05 — Plan a Sharing Event", body:"One-pager principle: situation, standard, gap, specific bounded ask. Faculty workshops, program reviews, joint letters to dean.", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Step 06 — Push into Governance or Beyond", body:"Curriculum committee, faculty senate, formal proposal. If blocked: Trojan Horse, union, accreditor outreach, professional organizations, or press.", tag:"Labor Advocacy Playbook", url:"playbook.html#steps" },
+    { title:"Scenario — Course Caps and Workload After Dev Ed Reform", body:"Community college NTT faculty. State elimination of developmental writing raises FYC caps, DFW rises to 33%. Disaggregate DFW by pathway and cap size. Frame as student success intervention.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Scenario — Anti-Racist Pedagogy Under Divisive Concepts Legislation", body:"Regional university tenure-track WPA. New legislation threatens DEI curriculum. Seek legal clarity, build faculty coalition, frame pedagogy as rhetorical competence not ideology.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Scenario — Resisting Under-Resourced Early College Initiative", body:"Tenured WPA asked to launch Early College in July with March notice. Say not yet. Propose conditional yes with specific requirements. Cite CCCC/CWPA Dual Enrollment statement.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Scenario — Online Section Caps Higher Than Face-to-Face", body:"Contingent faculty at community college. Online sections capped at 35, F2F at 27. Collect data anonymously first. Frame as student equity issue.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Scenario — WPA Work Classified as Service Not Scholarship", body:"R1 tenure-track assistant professor. WPA work counting as service in P&T review. Use CWPA Evaluating Intellectual Work and CCCC Scholarship Guidelines.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Scenario — Rising Adjunct Ratio and Program Coherence", body:"Liberal arts tenured WPA. Program went from 40% to 75% adjunct-taught. Present disaggregated DFW by instructor type. Bring to curriculum committee and faculty senate simultaneously.", tag:"Playbook Scenario", url:"playbook.html#scenarios" },
+    { title:"Heuristic 01 — Planning Your Advocacy", body:"Questions to ask before collecting or presenting any data: exigence, goal, audience, data biases, benchmarks, limitations, language legibility, circulation plan.", tag:"Data-Driven Advocacy", url:"data.html#heuristics" },
+    { title:"Heuristic 02 — Class Size Case Study", body:"Visualizing class size data for different stakeholders. For campus leaders: SCH overlays. For faculty governance: distributions with learning outcomes. For public advocacy: before and after comparisons with retention rates.", tag:"Data-Driven Advocacy", url:"data.html#heuristics" },
+    { title:"National Course Cap Benchmarks", body:"435 plus institutions. National FYC median: 22. Two-year college median: 25. Only 37% meet CCCC standard of 20. Most common single cap: 25.", tag:"Data-Driven Advocacy", url:"data.html#benchmarks" },
+    { title:"DFW Contextualization — Slow Down and Contextualize", body:"Before attributing DFW rates to curriculum or instruction, contextualize nationally by institution type. A 22% DFW at an open-access community college is not the same as 22% at a selective four-year institution.", tag:"Data-Driven Advocacy", url:"data.html#dfw" },
+    { title:"DFW Contextualization — Disaggregate Your Data", body:"Break DFW rates down by course type, modality, student demographics, section cap size, and instructor type. A single DFW rate hides enormous variation.", tag:"Data-Driven Advocacy", url:"data.html#dfw" },
+    { title:"DFW Contextualization — Connect to Working Conditions", body:"Instructors with 25 or more students cannot provide feedback quality that prevents Ws and Fs. High adjunct ratios correlate with higher DFW rates.", tag:"Data-Driven Advocacy", url:"data.html#dfw" },
+    { title:"Data Feminism Framework", body:"Drawing on D'Ignazio and Klein. Who collected this data? Whose goals are foregrounded? Who benefits from this framing and who does not? What is not counted?", tag:"Data-Driven Advocacy", url:"data.html#df" },
+    { title:"CCCC Principles for the Postsecondary Teaching of Writing (2023)", body:"No more than 20 students per writing class. Ideally 15. No instructor teaches more than 60 writing students per term.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"CWPA Evaluating the Intellectual Work of Writing Administration (1998)", body:"WPA administration is scholarship and should be evaluated as such in promotion and tenure review.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"CCCC Working Conditions for Non-Tenure-Track Writing Faculty (2016)", body:"Contract transparency, equitable pay, professional development, and workload standards for contingent faculty.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"TYCA White Paper on Two-Year College English Faculty Workload (2021)", body:"Empirical data from 1,062 two-year college respondents on workload, class size, and labor conditions.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"CCCC Scholarship in Rhetoric Writing and Composition Guidelines (2018)", body:"Guidelines for evaluating writing studies scholarship in promotion and tenure review.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"CCCC and CWPA Joint Statement on Dual Enrollment in Composition (2019)", body:"Requirements for dual enrollment and early college programs including instructor preparation, curriculum alignment, and adequate timeline.", tag:"Position Statement", url:"playbook.html#statements" },
+    { title:"CCCC Best Practices in Faculty Hiring (2016)", body:"Standards for ethical hiring in rhetoric and composition. Relevant when advocating for additional tenure-track lines or adjunct-to-FT conversion.", tag:"Position Statement", url:"playbook.html#statements" },
+  ];
+
+  function highlight(text, query) {
+    if (!query) return text;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+  }
+
+  function search(query) {
+    const q = query.trim().toLowerCase();
+    if (q.length < 2) return [];
+    const terms = q.split(/\s+/);
+    return INDEX
+      .map(entry => {
+        const hay = (entry.title + ' ' + entry.body).toLowerCase();
+        const score = terms.reduce((s, t) => {
+          if (entry.title.toLowerCase().includes(t)) return s + 2;
+          if (hay.includes(t)) return s + 1;
+          return s;
+        }, 0);
+        return { ...entry, score };
+      })
+      .filter(e => e.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 12);
+  }
+
+  function render(results, query) {
+    const el = document.getElementById('searchResults');
+    if (!results.length) {
+      el.innerHTML = '<div class="sr-empty">No results — try a different term</div>';
+      el.classList.add('open');
+      return;
+    }
+    const groups = {};
+    results.forEach(r => { if (!groups[r.tag]) groups[r.tag] = []; groups[r.tag].push(r); });
+    let html = '';
+    Object.entries(groups).forEach(([tag, items]) => {
+      html += `<div class="sr-group-label">${tag}</div>`;
+      items.forEach(item => {
+        const snippet = item.body.length > 110 ? highlight(item.body.slice(0, 110), query) + '…' : highlight(item.body, query);
+        html += `<a class="sr-item" href="${item.url}"><div class="sr-title">${highlight(item.title, query)}</div><div class="sr-snippet">${snippet}</div><span class="sr-tag">${item.tag}</span></a>`;
+      });
+    });
+    el.innerHTML = html;
+    el.classList.add('open');
+  }
+
+  const toggle  = document.getElementById('searchToggle');
+  const wrap    = document.getElementById('searchInputWrap');
+  const input   = document.getElementById('searchInput');
+  const results = document.getElementById('searchResults');
+
+  toggle.addEventListener('click', () => {
+    const isOpen = wrap.classList.toggle('open');
+    if (isOpen) { setTimeout(() => input.focus(), 280); }
+    else { input.value = ''; results.classList.remove('open'); }
+  });
+
+  let debounce;
+  input.addEventListener('input', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => {
+      const q = input.value;
+      if (q.trim().length < 2) { results.classList.remove('open'); return; }
+      render(search(q), q.trim());
+    }, 160);
+  });
+
+  document.addEventListener('click', e => {
+    if (!document.getElementById('navSearch').contains(e.target)) {
+      wrap.classList.remove('open');
+      input.value = '';
+      results.classList.remove('open');
+    }
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      wrap.classList.remove('open');
+      input.value = '';
+      results.classList.remove('open');
+    }
+  });
+})();
+</script>
 </body>
 </html>
-
