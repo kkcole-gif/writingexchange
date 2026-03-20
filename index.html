@@ -891,17 +891,26 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="#home" class="nav-name">The Writing Program <span>Exchange</span></a>
-  <div style="display:flex; align-items:center; gap:1rem;">
+  <div style="display:flex; align-items:center; gap:1.25rem;">
     <ul class="nav-links">
       <li><a href="#resources">Resources</a></li>
-      <li><a href="#playbook">Advocacy</a></li>
-      <li><a href="#data">Data</a></li>
-      <li><a href="#crosswalk">Crosswalk</a></li>
+      <li><a href="playbook.html">Advocacy</a></li>
+      <li><a href="data.html">Data</a></li>
+      <li><a href="crosswalk_resource.html">Crosswalk</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contribute">Contribute</a></li>
     </ul>
     <div class="nav-search" id="navSearch">
-      ...search HTML...
+      <button class="search-toggle" id="searchToggle" aria-label="Open search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <circle cx="6.5" cy="6.5" r="4.5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M10 10L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="search-input-wrap" id="searchInputWrap">
+        <input class="search-input" id="searchInput" type="text" placeholder="Search resources…" autocomplete="off" spellcheck="false">
+      </div>
+      <div class="search-results" id="searchResults"></div>
     </div>
     <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
       <span></span>
