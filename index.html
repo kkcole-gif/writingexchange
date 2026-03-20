@@ -891,21 +891,34 @@ footer {
 <!-- NAV -->
 <nav>
   <a href="#home" class="nav-name">The Writing Program <span>Exchange</span></a>
-  <ul class="nav-links">
-    <li><a href="#resources">Resources</a></li>
-    <li><a href="#playbook">Advocacy</a></li>
-    <li><a href="#data">Data</a></li>
-    <li><a href="#crosswalk">Crosswalk</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#contribute">Contribute</a></li>
-  </ul>
-  </ul>
-
-  <div class="nav-search" id="navSearch">
-    ... the search HTML ...
+  <div style="display:flex; align-items:center; gap:1rem;">
+    <ul class="nav-links">
+      <li><a href="#resources">Resources</a></li>
+      <li><a href="#playbook">Advocacy</a></li>
+      <li><a href="#data">Data</a></li>
+      <li><a href="#crosswalk">Crosswalk</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contribute">Contribute</a></li>
+    </ul>
+    <div class="nav-search" id="navSearch">
+      ...search HTML...
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
-</nav>
+
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <a href="index.html#resources">Resources</a>
+  <a href="playbook.html">Advocacy Playbook</a>
+  <a href="data.html">Data Guide</a>
+  <a href="crosswalk_resource.html">Crosswalk</a>
+  <a href="index.html#about">About</a>
+  <a href="index.html#contribute">Contribute</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
